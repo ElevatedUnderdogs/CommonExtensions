@@ -601,3 +601,23 @@ public extension String {
     /// 􀆄
     static var close: String { "xmark" }
 }
+
+extension String {
+
+    /// O(1)
+    subscript(safe range: ClosedRange<Int>) -> String {
+        get {
+            let start = String.Index(utf16Offset: range.lowerBound, in: self)
+            let end = String.Index(utf16Offset: range.upperBound, in: self)
+            return String(self[start...end])
+        }
+    }
+
+    /// O(1)
+    subscript(index: Int) -> String {
+        get {
+            let index = String.Index(utf16Offset: index, in: self)
+            return String(self[index])
+        }
+    }
+}

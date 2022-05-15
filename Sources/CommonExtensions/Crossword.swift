@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias Crossword = [[String]]
+public typealias Crossword = [[String]]
 
-extension Array where Element == [String] {
+public extension Array where Element == [String] {
 
     typealias EnumerateAction = (Coordinate, String) -> Void
 
