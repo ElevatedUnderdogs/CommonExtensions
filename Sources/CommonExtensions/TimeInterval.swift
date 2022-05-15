@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension TimeInterval {
+public extension TimeInterval {
     
     var hoursToMinutes: Double {
         return self / 60.0
@@ -23,7 +23,7 @@ extension TimeInterval {
     /**
      Eastern time zone
      */
-    public static var easternStandard: TimeZone {
+    static var easternStandard: TimeZone {
         get {
             TimeZone(abbreviation: "ES") ?? TimeZone(abbreviation: "ET") ?? TimeZone(abbreviation: "EST") ?? TimeZone(abbreviation: "EDT")!
         }

@@ -9,6 +9,6 @@ import Foundation
 
 
 
-extension RawRepresentable where RawValue: BinaryInteger {
+public extension RawRepresentable where RawValue: BinaryInteger {
     var double: Double { rawValue.double }
 }

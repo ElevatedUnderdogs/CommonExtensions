@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension DateComponents {
+public extension DateComponents {
 
     /// Gets the count of the days and 0 when nil.
     var dayCount: Int {

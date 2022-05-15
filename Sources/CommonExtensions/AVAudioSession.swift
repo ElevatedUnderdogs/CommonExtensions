@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 
-extension AVAudioSession {
+public extension AVAudioSession {
 
     class func set(category: AVAudioSession.Category = .playback) {
         do {

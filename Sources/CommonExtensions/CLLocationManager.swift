@@ -10,7 +10,7 @@ import Foundation
 import Foundation
 import CoreLocation
 
-extension CLLocationManager {
+public extension CLLocationManager {
 
     func setFrequency(high: Bool) {
         if high {

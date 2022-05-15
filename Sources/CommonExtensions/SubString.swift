@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Substring {
+public extension Substring {
     var string: String {
         String(self)
     }

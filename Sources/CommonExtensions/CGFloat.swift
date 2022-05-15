@@ -8,14 +8,14 @@
 import Foundation
 
 
-extension CGFloat {
+public extension CGFloat {
 
     var int: Int {
         Int(self)
     }
 }
 
-extension CGFloat {
+public extension CGFloat {
 
     func minus(_ number: Self) -> Self {
         self - number

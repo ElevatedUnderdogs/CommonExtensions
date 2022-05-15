@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension URL {
+public extension URL {
 //    static var localFilePath: URL? {
 //        guard
 //            let documentURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first,
@@ -42,7 +42,7 @@ extension URL {
 //    }
 }
 
-extension URL {
+public extension URL {
 
     static func bundlePath(for resource: String = "Content", of type: String = "json") -> Self? {
         URL(fileURLWithPath: String.bundlePath(for: resource, of: type))
@@ -54,7 +54,7 @@ extension URL {
 }
 
 // MARK: URL
-extension URL {
+public extension URL {
     func asyncData(completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
         URLSession.shared.dataTask(with: self, completionHandler: completion).resume()
     }
@@ -62,7 +62,7 @@ extension URL {
 
 
 
-//extension URL {
+//public extension URL {
 //
 //
 //    /// Creates a model and returns it.
@@ -83,7 +83,7 @@ extension URL {
 //    }
 //}
 
-extension URL {
+public extension URL {
 
     static func muxStream(id: String) -> URL {
         URL(string: "https://stream.mux.com/"+id+".m3u8")!

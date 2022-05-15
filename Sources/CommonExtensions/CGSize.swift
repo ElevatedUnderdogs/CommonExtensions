@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CGSize {
+public extension CGSize {
     var smallSide: CGFloat {
         min(width, height)
     }

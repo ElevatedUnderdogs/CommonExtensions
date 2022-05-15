@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Comparable {
+public extension Comparable {
     mutating func max(_ x: Self) {
         self = Swift.max(self, x)
     }

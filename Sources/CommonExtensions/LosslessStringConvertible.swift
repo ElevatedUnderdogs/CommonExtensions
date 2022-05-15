@@ -8,6 +8,6 @@
 import Foundation
 
 
-extension LosslessStringConvertible {
+public extension LosslessStringConvertible {
     var string: String { .init(self) }
 }

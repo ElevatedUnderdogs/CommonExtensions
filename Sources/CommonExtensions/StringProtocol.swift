@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension StringProtocol {
+public extension StringProtocol {
 
     var int: Int? { Int(self) }
 
@@ -31,7 +31,7 @@ extension StringProtocol {
 }
 
 // MARK: StringProtocol
-extension StringProtocol {
+public extension StringProtocol {
 
     var data: Data { utf8.data }
 
@@ -53,13 +53,13 @@ extension StringProtocol {
 }
 
 
-extension StringProtocol {
+public extension StringProtocol {
     var rows: [SubSequence] { split(whereSeparator: \.isNewline) }
     var columns: [SubSequence] { split(whereSeparator: \.isSemicolon) }
     var csvToMatrix: [[SubSequence]] { rows.map(\.columns) }
 }
 
-extension StringProtocol {
+public extension StringProtocol {
 
     var matrix: [[String]] {
         components(separatedBy: "\n").map(\.csvRow)

@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension Calendar {
+public extension Calendar {
     func dayOfWeek(_ date: Date) -> Int {
         var dayOfWeek = self.component(.weekday, from: date) + 1 - self.firstWeekday
 
@@ -84,7 +84,7 @@ extension Calendar {
     }
 }
 
-extension Calendar {
+public extension Calendar {
     static let gregorian = Calendar(identifier: .gregorian)
     static let iso8601 = Calendar(identifier: .iso8601)
     static let newYork: Calendar = {

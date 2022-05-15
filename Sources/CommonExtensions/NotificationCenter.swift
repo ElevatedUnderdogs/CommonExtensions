@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension NotificationCenter {
+public extension NotificationCenter {
 
 //    func joinChallenge(
 //        competitionId: Int64,

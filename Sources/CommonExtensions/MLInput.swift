@@ -16,7 +16,7 @@ import Foundation
 //        dictionary[featureName]
 //    }
 //
-//    /// Init as an input. Not using a dictionary extension because MLFeatureProviderr protocol requires a class
+//    /// Init as an input. Not using a dictionary public extension because MLFeatureProviderr protocol requires a class
 //    /// - Parameter dictionary: [header: cell]
 //    init(dictionary: [String: MLFeatureValue]) {
 //        self.dictionary = dictionary

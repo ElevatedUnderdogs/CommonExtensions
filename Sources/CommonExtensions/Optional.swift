@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension Optional where Wrapped: Numeric {
+public extension Optional where Wrapped: Numeric {
 
     /// Returns 0 when this is nil.
     var orZero: Wrapped {
@@ -16,14 +16,14 @@ extension Optional where Wrapped: Numeric {
     }
 }
 
-extension Optional where Wrapped: Numeric, Wrapped: Comparable {
+public extension Optional where Wrapped: Numeric, Wrapped: Comparable {
 
     var plurality: String {
         orZero > 1 ? "s" : ""
     }
 }
 
-extension Optional {
+public extension Optional {
 
     // casts to Any
     var any: Any {
@@ -32,14 +32,14 @@ extension Optional {
 }
 
 
-extension Optional where Wrapped: AdditiveArithmetic {
+public extension Optional where Wrapped: AdditiveArithmetic {
     var isEmpty: Bool {
         self == .zero || self == nil
     }
 }
 
 
-extension Optional where Wrapped == String {
+public extension Optional where Wrapped == String {
 
     @discardableResult
     static postfix func *~(expression: Self) -> String {
@@ -47,7 +47,7 @@ extension Optional where Wrapped == String {
     }
 }
 
-extension Optional {
+public extension Optional {
 
     func onlyPrintIfnotNil(preface: String = "") {
         if let wrapped = self {
@@ -76,7 +76,7 @@ extension Optional {
     }
 }
 
-extension Optional where Wrapped: CustomStringConvertible {
+public extension Optional where Wrapped: CustomStringConvertible {
 
     /// Provides a string representation of the wrapped value, "nil" if nil.
     var string: String {
@@ -84,20 +84,20 @@ extension Optional where Wrapped: CustomStringConvertible {
     }
 }
 
-extension Optional where Wrapped: RawRepresentable, Wrapped.RawValue == String {
+public extension Optional where Wrapped: RawRepresentable, Wrapped.RawValue == String {
     /// unwraps a string and returns "nil" if nil.
     var string: String {
         map(\.rawValue) ?? "nil"
     }
 }
 
-extension Optional where Wrapped: AdditiveArithmetic {
+public extension Optional where Wrapped: AdditiveArithmetic {
     var zeroIfNil: Wrapped {
         self ?? .zero
     }
 }
 
-extension Optional {
+public extension Optional {
     func flatten() -> Wrapped? {
         return self
     }
@@ -127,27 +127,30 @@ precedencegroup Chaining {
     associativity: left
 }
 
-protocol AnyOptional {
+public protocol AnyOptional {
     associatedtype Wrapped
     var optional: Optional<Wrapped> { get }
 }
 
-extension Optional: AnyOptional {
+ extension Optional: AnyOptional {}
+
+public extension Optional {
     var optional: Optional<Wrapped> { self }
 }
 
+
 // MARK: optional
-extension AnyOptional where Wrapped: LosslessStringConvertible  {
+extension AnyOptional where Wrapped: LosslessStringConvertible {
     var string: String {  optional?.string ?? "nil" }
 }
 
 // MARK: double optional
-extension AnyOptional where Wrapped: AnyOptional, Wrapped.Wrapped: LosslessStringConvertible {
+public extension AnyOptional where Wrapped: AnyOptional, Wrapped.Wrapped: LosslessStringConvertible {
     var string: String { optional?.string ?? "nil" }
 }
 
 // MARK: triple optional
-extension AnyOptional where Wrapped: AnyOptional,
+public extension AnyOptional where Wrapped: AnyOptional,
                             Wrapped.Wrapped: AnyOptional,
                             Wrapped.Wrapped.Wrapped: LosslessStringConvertible  {
     var string: String {  optional?.string ?? "nil" }

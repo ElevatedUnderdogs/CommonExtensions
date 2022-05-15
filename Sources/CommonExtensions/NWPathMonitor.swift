@@ -9,7 +9,7 @@ import Foundation
 import Network
 
 @available(macOS 10.14, *)
-extension NWPathMonitor {
+public extension NWPathMonitor {
 
     /// Unfortunately in order to give accurate observations of connectivity a slight delay is required.
     /// To prove the issue, connect, disconnect, then connect again, the value of connectivity will be disconnected

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension BinaryInteger {
+public extension BinaryInteger {
 
     var string: String {
         String(self)

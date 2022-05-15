@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension URLResponse {
+public extension URLResponse {
 
     func response200(data: Data) throws -> Data {
         guard (self as? HTTPURLResponse)?.statusCode == 200 else {

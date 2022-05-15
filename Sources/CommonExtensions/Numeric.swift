@@ -7,13 +7,13 @@
 
 import Foundation
 
-//extension Numeric where Self: Comparable, Self: LosslessStringConvertible {
+//public extension Numeric where Self: Comparable, Self: LosslessStringConvertible {
 //    var overZero: OverZero! {
 //        OverZero(description.decimal)
 //    }
 //}
 
-extension Numeric {
+public extension Numeric {
 
     mutating func setAsProportionateHeight(
         width: Self,

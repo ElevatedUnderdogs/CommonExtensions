@@ -11,7 +11,7 @@ import CoreML
 
 
 //@available(macOS 10.13, *)
-//extension MLModel {
+//public extension MLModel {
 //
 //    convenience init(
 //        modelName: URL

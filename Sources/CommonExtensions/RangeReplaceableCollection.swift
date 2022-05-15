@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension RangeReplaceableCollection where Element: Hashable {
+public extension RangeReplaceableCollection where Element: Hashable {
     var duplicates: Self {
         var set: Set<Element> = []
         var filtered: Set<Element> = []

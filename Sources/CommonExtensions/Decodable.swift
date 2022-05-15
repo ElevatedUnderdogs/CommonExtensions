@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension Decodable {
+public extension Decodable {
    init?(d: Data?) {
        guard let data = d,
              let s = Self(data) else { return nil }
@@ -16,7 +16,7 @@ extension Decodable {
    }
 }
 
-extension Decodable {
+public extension Decodable {
     init?(_ data: Data) {
         do {
             self = try JSONDecoder().decode(Self.self, from: data)
@@ -27,7 +27,7 @@ extension Decodable {
     }
 }
 //
-//extension Decodable {
+//public extension Decodable {
 //    init?(_ data: Data) {
 //        do {
 //            self = try JSONDecoder().decode(Self.self, from: data)

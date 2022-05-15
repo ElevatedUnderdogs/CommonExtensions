@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Encodable {
+public extension Encodable {
 
     var asDictionary: [String: Any]? {
       guard let data = try? JSONEncoder().encode(self) else { return nil }
@@ -16,7 +16,7 @@ extension Encodable {
 }
 
 
-extension Encodable {
+public extension Encodable {
 
     /// Converting object to postable dictionary
     /// SLashes are added when printing an optional string

@@ -10,7 +10,7 @@ import Foundation
 
 
 //// MARK: - JSONDecoder
-//extension JSONDecoder {
+//public extension JSONDecoder {
 //    static let decoder: JSONDecoder = {
 //        let decoder = JSONDecoder()
 //        decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -22,7 +22,7 @@ import Foundation
 
 
 // MARK: JSONDecoder
-extension JSONDecoder {
+public extension JSONDecoder {
 
    // static let iso8601 = JSONDecoder(dateDecodingStrategy: .iso8601)
 

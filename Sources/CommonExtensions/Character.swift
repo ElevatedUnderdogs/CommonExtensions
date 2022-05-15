@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Character {
+public extension Character {
     var asString: String {
         return String(self)
     }
@@ -17,6 +17,6 @@ extension Character {
     }
 }
 
-extension Character {
+public extension Character {
     var isSemicolon: Bool { self == ";" }
 }

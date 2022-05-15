@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension IndexPath {
+public extension IndexPath {
     static var zero: Self { .init(item: 0, section: 0) }
    // var nextRow: IndexPath { .init(row: row + 1, section: section) }
 }

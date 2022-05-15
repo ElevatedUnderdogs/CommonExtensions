@@ -8,7 +8,7 @@
 import Foundation
 import SystemConfiguration
 
-extension sockaddr_in {
+public extension sockaddr_in {
 
     static var isConnectedToNetwork: Bool {
         var zeroAddress = sockaddr_in()

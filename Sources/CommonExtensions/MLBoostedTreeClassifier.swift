@@ -7,7 +7,7 @@
 
 import Foundation
 
-//extension MLBoostedTreeClassifier {
+//public extension MLBoostedTreeClassifier {
 //
 //
 //    /// Creates an instance given a table and the name of the target column contained therein.

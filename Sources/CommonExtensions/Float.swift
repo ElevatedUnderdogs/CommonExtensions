@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Float {
+public extension Float {
 
     var int: Int {
         Int(self)
