@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 public extension CGSize {
     var smallSide: CGFloat {

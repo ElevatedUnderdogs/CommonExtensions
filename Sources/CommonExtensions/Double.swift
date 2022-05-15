@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 
 typealias DoubleAction = (Double) -> Void
