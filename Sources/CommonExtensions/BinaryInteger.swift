@@ -20,7 +20,13 @@ public extension BinaryInteger {
 
     func floatingPoint<F: BinaryFloatingPoint>() -> F { .init(self) }
     var float:   Float   { floatingPoint() }
-    var cgFloat: CGFloat { floatingPoint() }
+
     var double:  Double  { floatingPoint() }
     var float80: Float80 { floatingPoint() }
+}
+
+
+import CoreGraphics
+public extension BinaryInteger {
+    var cgFloat: CGFloat { floatingPoint() }
 }
