@@ -8,7 +8,7 @@
 import Foundation
 
 //// local
-//extension URLRequest {
+//public extension URLRequest {
 //
 //    init?(_ urlString: String) {
 //        let base = UserDefaults.baseUrlToUse

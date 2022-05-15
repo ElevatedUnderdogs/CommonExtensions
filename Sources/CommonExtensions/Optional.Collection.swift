@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Optional where Wrapped: Collection {
+public extension Optional where Wrapped: Collection {
     /// returns true when not nil and not empty
     var hasContents: Bool {
         map { !$0.isEmpty } ?? false

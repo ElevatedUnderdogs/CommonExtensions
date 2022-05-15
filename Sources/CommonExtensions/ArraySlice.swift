@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension ArraySlice {
+public extension ArraySlice {
 
     var array: [Element] { Array(self) }
 }

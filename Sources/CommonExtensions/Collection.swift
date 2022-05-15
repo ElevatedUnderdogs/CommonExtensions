@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension Collection {
+public extension Collection {
 
     var json: String {
         do {
@@ -70,7 +70,7 @@ extension Collection {
     }
 }
 
-extension Collection where Element: Equatable {
+public extension Collection where Element: Equatable {
 
     func isEmptyOr(has element: Element) -> Bool {
         isEmpty || contains(element)
@@ -78,12 +78,12 @@ extension Collection where Element: Equatable {
 }
 
 // Hashable collection
-extension Collection where Element: Hashable {
+public extension Collection where Element: Hashable {
     var allEqual: Bool { isEmpty ? true : Set(self).count == 1 }
    // var unique: [Element] { self.set.array }
 }
 
-extension Collection  {
+public extension Collection  {
     subscript(safe index: Index) -> Element.Wrapped? where Element: AnyOptional {
         indices.contains(index) ? self[index].optional ?? nil : nil
     }

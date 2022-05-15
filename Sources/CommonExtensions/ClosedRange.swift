@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension ClosedRange where Bound == Date {
+public extension ClosedRange where Bound == Date {
 
     /// Usage:
     ///  1. Takes the range of time from a start date to an end date
@@ -21,7 +21,7 @@ extension ClosedRange where Bound == Date {
     }
 }
 
-extension ClosedRange {
+public extension ClosedRange {
 
     /// Initializes a range safely.
     /// - Parameters:
@@ -36,7 +36,7 @@ extension ClosedRange {
 }
 
 
-extension ClosedRange where Bound == Date {
+public extension ClosedRange where Bound == Date {
 
 //    var minuteCount: Int {
 //        (lowerBound.timeIntervalSince(upperBound) / 60.0).int
@@ -56,13 +56,13 @@ extension ClosedRange where Bound == Date {
 }
 
 
-extension ClosedRange where Bound == Date {
+public extension ClosedRange where Bound == Date {
     var timeInterval: TimeInterval {
         upperBound.timeIntervalSince(lowerBound)
     }
 }
 
-extension ClosedRange {
+public extension ClosedRange {
     func overlapsSpace(_ other:Self) -> Bool {
         (other.lowerBound < lowerBound && lowerBound < other.upperBound) ||
             (other.lowerBound < upperBound && upperBound < other.upperBound) ||
@@ -71,7 +71,7 @@ extension ClosedRange {
     }
 }
 
-extension ClosedRange where Bound == Date {
+public extension ClosedRange where Bound == Date {
 
 //    var minuteCount: Int {
 //        (lowerBound.timeIntervalSince(upperBound) / 60.0).int

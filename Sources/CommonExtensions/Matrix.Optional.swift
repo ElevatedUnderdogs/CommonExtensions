@@ -7,7 +7,7 @@
 
 //import UIKit
 //
-//extension Array where Element == Array<Optional>  {
+//public extension Array where Element == Array<Optional>  {
 //
 //    static func empty(rows: Int) -> Self {
 //        Array(repeating: [Element.Iterator.Element](repeating: nil, count: rows), count: rows)
@@ -43,20 +43,20 @@
 //    }
 //}
 //
-//extension Collection where Element: Collection {
+//public extension Collection where Element: Collection {
 //
 //}
 //
 //
-//// could also make this an extension on Collection where the outer Index is also an Int.
-//extension Array where Element : Collection, Element.Index == Int {
+//// could also make this an public extension on Collection where the outer Index is also an Int.
+//public extension Array where Element : Collection, Element.Index == Int {
 //
 //    subscript(indexPath indexPath: IndexPath) -> Element.Iterator.Element {
 //        return self[indexPath.section][indexPath.row]
 //    }
 //}
 //
-//extension Array where Element == [Player? {
+//public extension Array where Element == [Player? {
 //
 //    var winner: Player? {
 //        rowWinner ??

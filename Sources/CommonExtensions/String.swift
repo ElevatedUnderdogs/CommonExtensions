@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
 
     // For apns primarily
     static var environmentString: String {
@@ -241,7 +241,7 @@ extension String {
     }
 }
 
-extension String {
+public extension String {
 
     static var companyName: String { #function }
     static var inviteCode: String { #function }
@@ -272,7 +272,7 @@ extension String {
 //    }
 }
 
-extension String {
+public extension String {
 
     var fileurl: URL? {
         URL(fileURLWithPath: self)
@@ -283,7 +283,7 @@ extension String {
 //    }
 }
 
-extension String {
+public extension String {
 
     /// creates a local model url from a string.
     var localModelURL: URL {
@@ -294,7 +294,7 @@ extension String {
 
 
 
-extension String {
+public extension String {
 
 
     static let line = "\n-----------------\n\n"
@@ -354,7 +354,7 @@ extension String {
 //
 //
 //    func bundleURL(with type: String = "csv", bundle: Bundle = .main) throws -> URL {
-//        guard let url = bundle.url(forResource: self, withExtension: type) else {
+//        guard let url = bundle.url(forResource: self, withpublic extension: type) else {
 //            throw Bundle.Error.notFound
 //        }
 //        return url
@@ -523,11 +523,11 @@ extension String {
 
 }
 
-extension String {
+public extension String {
     func floatingPoint<T: FloatingPoint>() -> T? where T: LosslessStringConvertible { T(self) }
 }
 
-extension String {
+public extension String {
 
     static func bundlePath(for resource: String = "Content", of type: String = "json") -> Self {
         Bundle.main.path(forResource: resource, ofType: type)!
@@ -548,7 +548,7 @@ extension String {
 
 // MARK: - Date From String
 /// warning: do not modify any of the shared formatter's properties
-//extension String {
+//public extension String {
 //
 //    var newYorkISO8601: Date? { Formatter.newYorkISO8601.date(from: self) }
 //
@@ -559,7 +559,7 @@ extension String {
 //    }
 //}
 
-extension String {
+public extension String {
 
     static var lorem: String {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation..."
@@ -575,7 +575,7 @@ extension String {
 }
 
 
-extension String {
+public extension String {
 
     /// 􀁜
     static var questionMarkSymbol: String { "questionmark.circle" }

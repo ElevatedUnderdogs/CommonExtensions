@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension CustomStringConvertible {
+public extension CustomStringConvertible {
 
     var description: String {
         guard let displayStyle = Mirror(reflecting: self).displayStyle else {

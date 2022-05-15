@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension UserDefaults {
+public extension UserDefaults {
 
 //    func search(for key: String) -> Search? {
 //        retrieve(for: key)
@@ -47,7 +47,7 @@ extension UserDefaults {
 }
 
 
-//extension Dictionary {
+//public extension Dictionary {
 //    mutating func merge(dict: [Key: Value]){
 //        for (k, v) in dict {
 //            updateValue(v, forKey: k)
@@ -55,7 +55,7 @@ extension UserDefaults {
 //    }
 //}
 
-extension Array {
+public extension Array {
 
     mutating func removeLastSafe() -> Element? {
         print("The count is: \(count)")
@@ -66,13 +66,13 @@ extension Array {
     }
 }
 
-extension Int {
+public extension Int {
     var string: String {
         String(self)
     }
 }
 
-extension String {
+public extension String {
 
 
 //    var url: URL? {
@@ -115,20 +115,20 @@ extension String {
 }
 
 
-extension URL {
+public extension URL {
     var request: URLRequest? {
         URLRequest(url: self)
     }
 }
 
-//extension String.SubSequence {
+//public extension String.SubSequence {
 //
 //    var string: String {
 //        String(self)
 //    }
 //}
 //
-//extension Collection {
+//public extension Collection {
 //
 //    /// Returns the element at the specified index if it is within bounds, otherwise nil.
 //    subscript (safe index: Index) -> Element? {

@@ -10,7 +10,7 @@ import Foundation
 
 typealias DoubleAction = (Double) -> Void
 
-extension Double {
+public extension Double {
 
     var whole: Self { rounded(.down) }
 
@@ -21,7 +21,7 @@ extension Double {
     }
 }
 
-fileprivate extension Double {
+public extension Double {
 
     /// Converts `550754` to `"550,754"`
     var commasAdded: String? {
@@ -31,7 +31,7 @@ fileprivate extension Double {
     }
 }
 
-extension Double {
+public extension Double {
 
    // var int: Int { Int(self) }
     var float: CGFloat { CGFloat(self) }

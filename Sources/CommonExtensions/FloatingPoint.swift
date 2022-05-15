@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension FloatingPoint where Self: LosslessStringConvertible {
+public extension FloatingPoint where Self: LosslessStringConvertible {
     /// Gets the decimal value from a Decimal.
     var fractionFromString: Decimal! {
         Decimal("0." + string.split(separator: ".").last.string)
@@ -16,7 +16,7 @@ extension FloatingPoint where Self: LosslessStringConvertible {
         Decimal(string: string)
     }
 }
-extension FloatingPoint {
+public extension FloatingPoint {
     var whole: Self { modf(self).0 }
     var fraction: Self { modf(self).1 }
 }

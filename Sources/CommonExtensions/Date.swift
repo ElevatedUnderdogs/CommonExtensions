@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
 
     // Convert local time to UTC (or GMT)
     func toGlobalTime() -> Date {
@@ -44,7 +44,7 @@ extension Date {
         return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
     }
 
-    public var dayofTheWeek: String {
+    var dayofTheWeek: String {
         let dayNumber = Calendar.current.component(.weekday, from: self)
         // day number starts from 1 but array count from 0
         return daysOfTheWeek[dayNumber - 1]
@@ -274,7 +274,7 @@ extension Date {
     }
 }
 
-extension Date {
+public extension Date {
     mutating func add(_ component: Calendar.Component, value: Int, wrappingComponents: Bool = false, using calendar: Calendar = .newYork) {
         self = adding(component, value: value, wrappingComponents: wrappingComponents, using: calendar)
     }
@@ -286,7 +286,7 @@ extension Date {
 
 // MARK: - String From Date
 /// warning: do not modify any of the shared formatter's properties
-extension Date {
+public extension Date {
 
 //    var newYorkISO8601: String { Formatter.newYorkISO8601.string(from: self) }
 //
@@ -359,7 +359,7 @@ extension Date {
 //    }
 }
 //
-//extension Date {
+//public extension Date {
 //
 //    var isToday: Bool { isToday() }
 //

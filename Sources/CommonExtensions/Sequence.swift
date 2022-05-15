@@ -7,37 +7,37 @@
 
 import Foundation
 
-extension Sequence where Element: StringProtocol {
+public extension Sequence where Element: StringProtocol {
     func searched(text: String?) -> [Element] {
         filter { $0.containsOrEmpty(other: text) }
     }
 }
 
-extension Sequence where Element: CustomStringConvertible {
+public extension Sequence where Element: CustomStringConvertible {
     func searched(text: String?) -> [Element] {
         filter { $0.description.containsOrEmpty(other: text) }
     }
 }
 
-extension Sequence {
+public extension Sequence {
     var array: [Element] {
         Array(self)
     }
 }
 
-extension Sequence where Element == UInt8 {
+public extension Sequence where Element == UInt8 {
     var data: Data { .init(self) }
 }
 
 
 
-//extension Sequence where Self: Collection, Element: Hashable {
+//public extension Sequence where Self: Collection, Element: Hashable {
 //    func homogenous(over: Decimal) -> Bool {
 //        frequency.values.max()!.decimal > self.count.decimal * over
 //    }
 //}
 
-extension Sequence {
+public extension Sequence {
 
   //  var array: [Element] { .init(self) }
 
@@ -58,7 +58,7 @@ extension Sequence {
     }
 }
 
-extension Sequence where Element: Comparable {
+public extension Sequence where Element: Comparable {
 
     func just(under value: Element) -> Element? {
         sorted().filter { $0 < value }.last
@@ -84,7 +84,7 @@ extension Sequence where Element: Comparable {
 }
 
 
-extension Sequence where Element: Hashable {
+public extension Sequence where Element: Hashable {
 
     var set: Set<Element> { .init(self) }
 

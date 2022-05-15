@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension Int {
+public extension Int {
     var boolValue: Bool { return self != 0 }
 
     @discardableResult
@@ -53,17 +53,17 @@ extension Int {
     }
 }
 
-extension Int {
+public extension Int {
     var int64: Int64 { Int64(self) }
 }
 
-extension Int {
+public extension Int {
     func degreesToRads() -> Double {
         return (Double(self) * .pi / 180)
     }
 }
 
-extension Int64 {
+public extension Int64 {
     /**
      Returns true if the number is even, false otherwise
      */
@@ -77,11 +77,11 @@ extension Int64 {
 }
 
 
-extension Int {
+public extension Int {
     var isOverZero: Bool { self > 0 && self == self }
 }
 
-extension Int {
+public extension Int {
 
 //    var string: String { String(self) }
     func min(_ number: Self) -> Self { self < number ? number : self }
@@ -92,14 +92,14 @@ extension Int {
 
 
 
-extension Int {
+public extension Int {
     /// Includes a Nan check
     var isOverOne: Bool {
         self > 1 && self == self
     }
 }
 
-fileprivate extension Int64 {
+public extension Int64 {
 
     /// Converts `550754` to `"550,754"`
     var commasAdded: String? {
@@ -114,7 +114,7 @@ fileprivate extension Int64 {
     }
 }
 
-//extension Int {
+//public extension Int {
 //
 //    var string: String { String(self) }
 //    func min(_ number: Self) -> Self { self < number ? number : self }
@@ -122,10 +122,10 @@ fileprivate extension Int64 {
 //    var double: Double { Double(self) }
 //}
 //
-//extension Int64: DoubleConvertible {
+//public extension Int64: DoubleConvertible {
 //    var double: Double { Double(self) }
 //}
 
-extension UInt8 {
+public extension UInt8 {
     var double: Double { Double(self) }
 }

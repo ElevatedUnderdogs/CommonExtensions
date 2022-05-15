@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension OutputStream {
+public extension OutputStream {
 
   func send(message: String) {
     guard let data = message.data(using: .utf8) else {

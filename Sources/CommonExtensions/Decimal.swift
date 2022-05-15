@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension Decimal {
+public extension Decimal {
     /// returns 0 if positive, current value * -1 if negative
     /// Careful, the compiler reads: "-93.4.negativeOnly" as "-1 * 93.4.negativeOnly" not as "(-93.4).negativeOnly"
     var negativeOnly: Decimal { self < 0 ? self * -1 : 0 }
@@ -18,25 +18,25 @@ extension Decimal {
 
 }
 
-extension Decimal {
+public extension Decimal {
     var isOverZero: Bool {
         self > 0 && !isNaN
     }
 }
 
-extension Decimal {
+public extension Decimal {
     var isPositive: Bool {
         self >= .zero && !isNaN
     }
 }
 
-extension Decimal {
+public extension Decimal {
     func isWithin(_ range: ClosedRange<Decimal>) -> Bool {
         range ~= self && !isNaN
     }
 }
 
-extension Decimal {
+public extension Decimal {
     var isNotZero: Bool {
         value != .zero && !value.isNaN
     }
@@ -44,7 +44,7 @@ extension Decimal {
 
 
 //
-//extension Direction {
+//public extension Direction {
 //
 //    /// You can initialize the direction by passing the dependent value as a Decimal.
 //    /// - Parameter dependent: Recommend: `model.prediction(input: frame.modelInput()!).dependent.Decimal`
@@ -78,7 +78,7 @@ extension Decimal {
 //}
 
 
-enum Magnitudey {
+public enum Magnitudey {
     case negative, zero, positive
 
     init<T: Comparable>(compare first: T, to second: T) {
@@ -88,7 +88,7 @@ enum Magnitudey {
     }
 }
 
-extension Decimal {
+public extension Decimal {
 
     var mag: Magnitudey {
         self > .zero ? .positive :
@@ -97,7 +97,7 @@ extension Decimal {
     }
 }
 
-extension AdditiveArithmetic where Self: Comparable {
+public extension AdditiveArithmetic where Self: Comparable {
 
     var mag: Magnitudey {
         self > .zero ? .positive :
@@ -106,18 +106,20 @@ extension AdditiveArithmetic where Self: Comparable {
     }
 }
 
-extension Sequence where Element: AdditiveArithmetic {
+public extension Sequence where Element: AdditiveArithmetic {
     var sum: Element {
         reduce(.zero, +)
     }
 }
-
 
 extension Decimal: LosslessStringConvertible {
 
     public init?(_ description: String) {
         self.init(string: description.numberLinted)
     }
+}
+
+public extension Decimal {
 
     /// Rounds a value
     /// - Parameters:
@@ -314,15 +316,15 @@ extension Decimal: LosslessStringConvertible {
     }
 }
 
-extension Decimal/*: HasValue*/ {
-    public init?(_ value: Decimal?) {
+public extension Decimal/*: HasValue*/ {
+    init?(_ value: Decimal?) {
         guard let value = value else { return nil }
         self = value
     }
 
-    public init(stringLiteral value: String) {
+    init(stringLiteral value: String) {
         self.init(string: value)!
     }
 
-    public var value: Decimal { self }
+    var value: Decimal { self }
 }

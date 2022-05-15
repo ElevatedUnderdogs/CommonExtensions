@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension Array {
+public extension Array {
 
     func noNils<T>() -> Bool where Element == T? {
         allSatisfy { $0 != nil }
     }
 }
 
-extension Array where Element: Hashable {
+public extension Array where Element: Hashable {
 
     /// Big O(N) version.
     var uniques: Array {
@@ -29,14 +29,14 @@ extension Array where Element: Hashable {
     }
 }
 
-extension Array {
+public extension Array {
     var secondToLast: Element? {
         let target: Index = count - 2
         return indices.contains(target) ? self[target] : nil
     }
 }
 
-extension Array where Element: Hashable {
+public extension Array where Element: Hashable {
     var set: Set<Element> {
         Set(self)
     }
@@ -44,7 +44,7 @@ extension Array where Element: Hashable {
 
 
 
-extension Array {
+public extension Array {
     var hasElements: Bool {
         return !isEmpty
     }
@@ -53,7 +53,7 @@ extension Array {
 
 infix operator ???
 
-extension Array {
+public extension Array {
 
     // MARK - access
 
@@ -106,7 +106,7 @@ extension Array {
 }
 
 
-extension Array where Element == Any {
+public extension Array where Element == Any {
     var asText: String {
         var texts: String = ""
         for element in self {
@@ -117,7 +117,7 @@ extension Array where Element == Any {
 }
 
 
-extension Array where Element: Equatable {
+public extension Array where Element: Equatable {
 
     mutating func remove(_ element: Element) {
         if !self.contains(element) { return }
@@ -143,7 +143,7 @@ extension Array where Element: Equatable {
     }
 }
 
-extension Array where Element == String {
+public extension Array where Element == String {
     var asString: String {
         var string = ""
         for element in self {
@@ -153,13 +153,13 @@ extension Array where Element == String {
     }
 }
 
-extension Array where Element == Int {
+public extension Array where Element == Int {
     var strings: [String] {
         return map { String($0) }
     }
 }
 
-extension Array where Element: Hashable & Equatable {
+public extension Array where Element: Hashable & Equatable {
 
     var uniqueOrdered: [Element] {
         var buffer: [Element] = []
@@ -174,7 +174,7 @@ extension Array where Element: Hashable & Equatable {
 
 
 
-extension Array where Element == [String] {
+public extension Array where Element == [String] {
 
 
     var asCSV: String? {
@@ -194,7 +194,7 @@ extension Array where Element == [String] {
 
 
 
-extension Array where Element == String {
+public extension Array where Element == String {
 
     var csvCommaSeparatedNewLine: String {
         joined(separator: ",") + "\n"
@@ -244,7 +244,7 @@ extension Array where Element == String {
     }
 }
 
-extension Array where Element == Date {
+public extension Array where Element == Date {
 
     init(
         between first: Date,
@@ -273,7 +273,7 @@ extension Array where Element == Date {
 //    }
 }
 
-extension Array where Element == Any {
+public extension Array where Element == Any {
 
     static func permutate<A, B>(
         first: [A],
@@ -292,7 +292,7 @@ extension Array where Element == Any {
 
 
 
-extension Array where Element == Array<String> {
+public extension Array where Element == Array<String> {
     var removeNils: Self {
         filter { row in
             row.allSatisfy { cell in
@@ -303,7 +303,7 @@ extension Array where Element == Array<String> {
 }
 
 
-extension Array where Element == Decimal? {
+public extension Array where Element == Decimal? {
 
     func fromLast(_ indexOffset: Int?) -> Element {
         guard let indexOffset = indexOffset else { return .zero }

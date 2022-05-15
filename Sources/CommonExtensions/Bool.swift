@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension Bool {
+public extension Bool {
 
     var float: CGFloat { self ? 1 : 0 }
     var onOff: String { self ? "on" : "off" }
 }
 
 
-extension Bool {
+public extension Bool {
     var negate: Bool { !self }
 
     var successStr: String {

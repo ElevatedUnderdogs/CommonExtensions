@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension DataProtocol {
+public extension DataProtocol {
 
    var string: String? {
        String(bytes: self, encoding: .utf8)

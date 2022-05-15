@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Dictionary {
+public extension Dictionary {
 
     static func + (lhs: Self, rhs: Self) -> Self {
         var new: Self = lhs
@@ -28,7 +28,7 @@ extension Dictionary {
 }
 
 
-//extension Dictionary where Key == UIImagePickerController.InfoKey, Value == Any {
+//public extension Dictionary where Key == UIImagePickerController.InfoKey, Value == Any {
 //
 //    var stringAnyDictionary: [String: Any] {
 //        return [String: Any](uniqueKeysWithValues: map {key, value in (key.rawValue, value)})
@@ -36,7 +36,7 @@ extension Dictionary {
 //}
 
 
-extension Dictionary  {
+public extension Dictionary  {
 
     var hasElements: Bool {
         for (_, _) in self {
@@ -47,7 +47,7 @@ extension Dictionary  {
 }
 
 
-extension Dictionary where Value == Int {
+public extension Dictionary where Value == Int {
 
     mutating func replace(oldValue: Int, newValue: Int) {
         var keys: [Key] = []
@@ -71,7 +71,7 @@ extension Dictionary where Value == Int {
 }
 
 
-extension Dictionary where Key ==  String, Value == Double {
+public extension Dictionary where Key ==  String, Value == Double {
 
     var json: [String: String] {
         return mapValues { String($0) }
@@ -79,7 +79,7 @@ extension Dictionary where Key ==  String, Value == Double {
 }
 
 
-extension Dictionary where Key == String, Value == Any {
+public extension Dictionary where Key == String, Value == Any {
     var success: Bool {
         guard let success = self["success"] as? Int else { return false }
         return success.boolValue
@@ -122,7 +122,7 @@ func += <K, V> (left: inout [K:V], right: [K:V]) {
     }
 }
 
-extension Dictionary where Key == String, Value == String {
+public extension Dictionary where Key == String, Value == String {
 //    static func forAccess(
 //        _ token: String = Bundle.td_AccessToken,
 //        moreHeaders: [String: String] = [:]
@@ -137,7 +137,7 @@ extension Dictionary where Key == String, Value == String {
 
 
 
-extension Dictionary where Key == String, Value == Any {
+public extension Dictionary where Key == String, Value == Any {
 
 //    var data: Data? {
 //        try? NSKeyedArchiver.archivedData(
@@ -188,7 +188,7 @@ extension Dictionary where Key == String, Value == Any {
 }
 
 
-extension Dictionary {
+public extension Dictionary {
 
     func mergeReplacingCurrent(with dict: [Key: Value]) -> Self {
         merging(dict) { $1 }
@@ -199,34 +199,34 @@ extension Dictionary {
     }
 }
 
-//extension Dictionary where Key: DoubleConvertible, Value == Double {
+//public extension Dictionary where Key: DoubleConvertible, Value == Double {
 //
 //    var score: Double {
 //        reduce(0) { $0 + $1.key.double * $1.value }
 //    }
 //}
 
-extension Dictionary where Value == Double {
+public extension Dictionary where Value == Double {
 
     mutating func add(_ value: Double, for key: Key) {
         self[key] = self[key].zeroIfNil + value
     }
 }
-extension Dictionary where Value == Decimal {
+public extension Dictionary where Value == Decimal {
 
     mutating func add(_ value: Decimal, for key: Key) {
         self[key] = value + self[key].zeroIfNil
     }
 }
 
-//extension Dictionary where Key == String, Value == Double {
+//public extension Dictionary where Key == String, Value == Double {
 //    var score: Double {
 //        reduce(0) { $0 + ($1.key.trend?.double ?? .zero) * $1.value }
 //    }
 //}
 
 
-extension Dictionary where Key: Comparable {
+public extension Dictionary where Key: Comparable {
     var sortedTuples: [(Key, Value)] {
         keys.sorted().map { ($0, self[$0]!) }
     }

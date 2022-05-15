@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension DefaultStringInterpolation {
+public extension DefaultStringInterpolation {
   mutating func appendInterpolation<T>(_ optional: T?) {
     appendInterpolation(String(describing: optional))
   }

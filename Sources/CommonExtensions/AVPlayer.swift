@@ -7,7 +7,7 @@
 
 import AVKit
 
-extension AVPlayer {
+public extension AVPlayer {
 
     convenience init?(urlString: String) {
         guard let url = URL(string: urlString) else { return nil }

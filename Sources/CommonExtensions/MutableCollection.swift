@@ -8,7 +8,7 @@
 import Foundation
 
 
-extension MutableCollection where Self: RandomAccessCollection {
+public extension MutableCollection where Self: RandomAccessCollection {
     mutating func sort<T: Comparable>(_ predicate: (Element) -> T, by areInIncreasingOrder: ((T, T) -> Bool) = (<)) {
         sort { areInIncreasingOrder(predicate($0), predicate($1)) }
     }

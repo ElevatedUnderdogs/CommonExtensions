@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Data {
+public extension Data {
 
     var string: String {
         return map {String(format: "%02.2hhx", $0)}.joined()
@@ -52,7 +52,7 @@ extension Data {
 }
 
 // MARK: Data
-extension Data {
+// public extension Data {
 
    // var string: String? { String(data: self, encoding: .utf8) }
 //
@@ -63,11 +63,11 @@ extension Data {
 //    func decodedObject<T: Decodable>(using decoder: JSONDecoder = .iso8601) throws -> T {
 //        try decoder.decode(T.self, from: self)
 //    }
-}
+// }
 
 
 // MARK: - Data
-//extension Data {
+//public extension Data {
 //    func decodedObject<T: Decodable>(using decoder: JSONDecoder = JSONDecoder()) throws -> T {
 //        try decoder.decode(T.self, from: self)
 //    }

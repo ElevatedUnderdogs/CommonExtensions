@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension SignedInteger {
+public extension SignedInteger {
 
     var plurality: String {
         self > 1 ? "s" : ""

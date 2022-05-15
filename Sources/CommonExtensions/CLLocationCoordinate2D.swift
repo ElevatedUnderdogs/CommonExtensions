@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 
-extension CLLocationCoordinate2D {
+public extension CLLocationCoordinate2D {
 
     var json: [String: String] {
         return [

@@ -8,7 +8,7 @@
 import Foundation
 import XCTest
 
-extension XCTest {
+public extension XCTest {
     func XCTAssertOrPrint(_ assertion: Bool, _ message: String) {
         if assertion {
             print(message)
