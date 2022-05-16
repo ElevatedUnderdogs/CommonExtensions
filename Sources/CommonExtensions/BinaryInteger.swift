@@ -22,6 +22,8 @@ public extension BinaryInteger {
     var float:   Float   { floatingPoint() }
 
     var double:  Double  { floatingPoint() }
+
+    @available(macOS 10.10, *)
     var float80: Float80 { floatingPoint() }
 }
 
