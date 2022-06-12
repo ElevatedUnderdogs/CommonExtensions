@@ -46,9 +46,10 @@ public extension Data {
     }
 
 
-//    func codable<T: Codable>() -> T? {
-//        T(self)
-//    }
+    /// I think this should be fine...might need to roll it back..
+    func codable<T: Codable>() -> T? {
+        T(self)
+    }
 }
 
 // MARK: Data

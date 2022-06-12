@@ -45,6 +45,10 @@ public extension Optional where Wrapped == String {
     static postfix func *~(expression: Self) -> String {
         expression ?? "nil"
     }
+
+    var isEmpty: Bool {
+        map { $0.count == 0 } ?? true
+    }
 }
 
 public extension Optional {
@@ -154,4 +158,10 @@ public extension AnyOptional where Wrapped: AnyOptional,
                             Wrapped.Wrapped: AnyOptional,
                             Wrapped.Wrapped.Wrapped: LosslessStringConvertible  {
     var string: String {  optional?.string ?? "nil" }
+}
+
+public extension Optional where Wrapped: ExpressibleByArrayLiteral, Wrapped: Equatable {
+    var isEmpty: Bool {
+        self == [] || self == nil
+    }
 }

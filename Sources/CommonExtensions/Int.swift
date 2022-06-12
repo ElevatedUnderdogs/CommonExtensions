@@ -17,8 +17,16 @@ public extension Int {
         return self
     }
 
+    var decimal: Decimal {
+        Decimal(self)
+    }
+
+    var leadingZero: String {
+        String(format: "%02d", self)
+    }
+
 //    var string: String {
-//        return String(self)
+//        String(self)
 //    }
 
     var yearsInSeconds: Double {
