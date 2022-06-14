@@ -113,6 +113,7 @@ public extension Dictionary where Key == String, Value == Any {
 }
 
 
+
 public typealias DictionaryAction = ([String: Any]) -> Void
 
 
@@ -132,6 +133,13 @@ public extension Dictionary where Key == String, Value == String {
 
     var stringFile: String {
         map { "\"" + $0.0  + "\" = \"" +  $0.1 + "\";" }.joined(separator: "\n")
+    }
+
+
+    var sortedString: String {
+        let strings: [String] = sortedTuples.map { $0 + String(describing: $1) }
+        let joined: String = strings.joined()
+        return joined
     }
 }
 
