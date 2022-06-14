@@ -32,7 +32,7 @@ import Foundation
 //    }
 //}
 
-extension URLRequest {
+public extension URLRequest {
 
     var deterministicHash: String {
         String((url.string + httpMethod.string + (httpBody?.string ?? "")).deterministicHash)

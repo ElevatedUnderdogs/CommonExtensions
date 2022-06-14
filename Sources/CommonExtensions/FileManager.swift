@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension FileManager {
+public extension FileManager {
     func with(hash: String) throws -> URL {
         try url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             .appendingPathExtension(hash)
