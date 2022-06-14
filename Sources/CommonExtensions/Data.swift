@@ -81,9 +81,13 @@ public extension Data {
    }
 
 
-   func string(encoding: String.Encoding = .utf8) -> String? {
-       String(data: self, encoding: encoding)
-   }
+    func string(encoding: String.Encoding = .utf8) -> String? {
+        String(data: self, encoding: encoding)
+    }
+
+    var validJSON: String? {
+        String(data: self, encoding: .utf8)
+    }
 
 //   func serialized() throws -> [String: Any]?  {
 //       try JSONSerialization.jsonObject(with: self, options: []) as? [String: Any]
