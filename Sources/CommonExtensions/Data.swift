@@ -112,4 +112,11 @@ public extension Data {
            try write(to: fileURL, options: .atomic)
        }
    }
+
+    var sortedString: String {
+        let sorted = jsonDictionary?.sortedTuples
+        let strings: [String] = sorted?.map { $0 + String(describing: $1) } ?? []
+        let joined: String = strings.joined()
+        return joined
+    }
 }

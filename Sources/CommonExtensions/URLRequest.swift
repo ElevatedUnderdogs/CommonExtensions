@@ -35,6 +35,7 @@ import Foundation
 public extension URLRequest {
 
     var deterministicHash: String {
-        String((url.string + httpMethod.string + (httpBody?.string ?? "")).deterministicHash)
+        String((url.string + httpMethod.string + (httpBody?.sortedString ?? "") + (allHTTPHeaderFields?.sortedString ?? ""))
+            .deterministicHash)
     }
 }
