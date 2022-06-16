@@ -629,4 +629,17 @@ extension String {
             return String(self[index])
         }
     }
+
+
+    /// Expects the string to be in the format "name.type", for example "local.json"
+    var localData: Data? {
+        let comps = components(separatedBy: ".")
+        guard let first = comps.first,
+              let second = comps[safe: 1],
+              let path = Bundle.main.path(forResource: first, ofType: second),
+              let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe) else {
+            return nil
+        }
+        return data
+    }
 }
