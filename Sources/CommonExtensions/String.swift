@@ -632,7 +632,7 @@ extension String {
 
 
     /// Expects the string to be in the format "name.type", for example "local.json"
-    var localData: Data? {
+    public var localData: Data? {
         let comps = components(separatedBy: ".")
         guard let first = comps.first,
               let second = comps[safe: 1],
