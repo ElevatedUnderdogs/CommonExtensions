@@ -642,4 +642,9 @@ extension String {
         }
         return data
     }
+
+    /// Separates the text into paragraphs.
+    var paragraphs: [String] {
+        components(separatedBy: "\n")
+    }
 }
