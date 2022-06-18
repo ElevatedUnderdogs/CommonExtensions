@@ -61,7 +61,9 @@ public extension URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last?.appendingPathComponent(name)
     }
 
-    func save(text: String) throws {
+    /// Creates a file and writes to it.  If the file already exists at this location, then this writes to it
+    /// - Parameter text: text to write to the file.
+    func createFileAndWrite(text: String) throws {
         try text.write(to: self, atomically: true, encoding: .utf8)
     }
 
@@ -82,9 +84,13 @@ public extension URL {
     }
 
     /// **WARNING** This can only be used on Macos.  The iOS dandbox doesn't have access to desktop!
-    ///   If you want to write to desktop files, consider creating a Macos app.  
-    ///  You can map through the folder like so:
-    ///  `appendingPathComponent("iOS/DataFrame/name.json")`
+    /// **WARNING** If you want to write to desktop files,
+    /// - consider creating a Macos app.
+    /// - Delete the app sandbox key value pair in the entitlements.
+    ///
+    ///  You can map through the folder like so: `appendingPathComponent("iOS/DataFrame/name.json")`
+    ///  Strategy: Sometimes it helps to read the files at the location, first to ensure you can reach the document leaf,
+    ///  and then attempt to write.
     static var desktop: URL? {
         try? FileManager.default.url(
             for: .desktopDirectory,
