@@ -81,6 +81,8 @@ public extension URL {
         URL.bundlePath().flatMap { try? Data(contentsOf: $0) }
     }
 
+    ///  You can map through the folder like so:
+    ///  `appendingPathComponent("iOS/DataFrame/name.json")`
     static var desktop: URL? {
         try? FileManager.default.url(
             for: .desktopDirectory,
@@ -89,7 +91,9 @@ public extension URL {
             create: false
         )
     }
-
+    
+    ///  You can map through the folder like so:
+    ///  `appendingPathComponent("iOS/DataFrame/name.json")`
     static var documents: URL? {
         try? FileManager.default.url(
             for: .desktopDirectory,
