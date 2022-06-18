@@ -581,10 +581,6 @@ public extension String {
     static func random(length: Int) -> String {
         String((0..<length).compactMap { _ in String.alphaNumeric.randomElement() })
     }
-}
-
-
-public extension String {
 
     /// 􀁜
     static var questionMarkSymbol: String { "questionmark.circle" }
@@ -644,7 +640,7 @@ extension String {
     }
 
     /// Separates the text into paragraphs.
-    var paragraphs: [String] {
+    public var paragraphs: [String] {
         components(separatedBy: "\n")
     }
 }
