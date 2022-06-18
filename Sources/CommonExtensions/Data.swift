@@ -45,6 +45,9 @@ public extension Data {
         }
     }
 
+    func traditionalCodable<T: Codable>() -> T? {
+        try? JSONDecoder().decode(T.self, from: self)
+    }
 
     /// I think this should be fine...might need to roll it back..
     func codable<T: Codable>() -> T? {
