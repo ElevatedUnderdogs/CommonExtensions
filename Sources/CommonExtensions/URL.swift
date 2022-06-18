@@ -80,6 +80,24 @@ public extension URL {
     var data: Data? {
         URL.bundlePath().flatMap { try? Data(contentsOf: $0) }
     }
+
+    static var desktop: URL? {
+        try? FileManager.default.url(
+            for: .desktopDirectory,
+            in: .allDomainsMask,
+            appropriateFor: nil,
+            create: false
+        )
+    }
+
+    static var documents: URL? {
+        try? FileManager.default.url(
+            for: .desktopDirectory,
+            in: .allDomainsMask,
+            appropriateFor: nil,
+            create: false
+        )
+    }
 }
 
 
