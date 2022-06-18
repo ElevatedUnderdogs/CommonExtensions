@@ -81,6 +81,8 @@ public extension URL {
         URL.bundlePath().flatMap { try? Data(contentsOf: $0) }
     }
 
+    /// **WARNING** This can only be used on Macos.  The iOS dandbox doesn't have access to desktop!
+    ///   If you want to write to desktop files, consider creating a Macos app.  
     ///  You can map through the folder like so:
     ///  `appendingPathComponent("iOS/DataFrame/name.json")`
     static var desktop: URL? {
@@ -91,7 +93,7 @@ public extension URL {
             create: false
         )
     }
-    
+
     ///  You can map through the folder like so:
     ///  `appendingPathComponent("iOS/DataFrame/name.json")`
     static var documents: URL? {
