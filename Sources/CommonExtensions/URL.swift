@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Security
 
 public extension URL {
 //    static var localFilePath: URL? {
@@ -64,6 +65,7 @@ public extension URL {
     /// Creates a file and writes to it.  If the file already exists at this location, then this writes to it
     /// - Parameter text: text to write to the file.
     func createFileAndWrite(text: String) throws {
+        assert(!Bundle.main.ob_isSandboxed, "Delete the sandbox key value pair in the entitlements")
         try text.write(to: self, atomically: true, encoding: .utf8)
     }
 
@@ -112,25 +114,82 @@ public extension URL {
     }
 }
 
+public enum OBCodeSignState: Int {
+    case OBCodeSignStateUnsigned = 1
+    case OBCodeSignStateSignatureValid
+    case OBCodeSignStateSignatureInvalid
+    case OBCodeSignStateSignatureNotVerifiable
+    case OBCodeSignStateSignatureUnsupported
+    case OBCodeSignStateError
+}
 
 
-//public extension URL {
+/// This is all needed to check if the app is in sandbox mode,
+/// basically that the entitlements dictionary has Sandbox = YES
+public extension Bundle {
+
+    var ob_createStaticCode: SecStaticCode? {
+        var staticCode: SecStaticCode? = nil
+        SecStaticCodeCreateWithPath(bundleURL as CFURL, SecCSFlags(), &staticCode)
+        return staticCode
+    }
+
+    var ob_comesFromAppStore: Bool {
+        guard let appStoreReceiptURL: URL = appStoreReceiptURL else { return false }
+        let appStoreReceiptExists: Bool = FileManager().fileExists(atPath: appStoreReceiptURL.path)
+        return appStoreReceiptExists
+    }
+
+    var ob_sandboxRequirement: SecRequirement? {
+        var sandboxRequirement: SecRequirement?
+        SecRequirementCreateWithString("entitlement[\"com.apple.security.app-sandbox\"] exists" as CFString, SecCSFlags(), &sandboxRequirement)
+        return sandboxRequirement
+    }
+
+    var ob_isSandboxed: Bool {
+        if ob_codeSignState == .OBCodeSignStateSignatureValid,
+            let staticCode = ob_createStaticCode {
+            let codeCheckResult: OSStatus = SecStaticCodeCheckValidityWithErrors(
+                staticCode,
+                SecCSFlags(rawValue: kSecCSBasicValidateOnly),
+                ob_sandboxRequirement,
+                nil
+            )
+            return codeCheckResult == errSecSuccess
+        }
+        return false
+    }
+
+
+    var ob_codeSignState: OBCodeSignState {
+
+//      //   static const void *kOBCodeSignStateKey;
 //
-//
-//    /// Creates a model and returns it.
-//    /// - Parameter startTime:used to print the
-//    /// - Throws: throws an error when trying to create the model.
-//    /// - Returns: returns the model thats created.
-//    @discardableResult func createBoostedModel(startTime: Date = Date()) throws -> MLModel {
-//        let model: MLBoostedTreeClassifier = try .standard(trainingData: mlDataTable())
-//        try model.write(to: self, metadata: nil)
-//        print("completed in \(startTime.timeIntervalSinceNow / 60) minutes.  Please open the project and run.")
-//        return model.model
-//    }
-//
-//    /// Creates an MLDataTable with the contents at this url.
-//    /// The table splits by the split argument.
-//    func mlDataTable(by split: Double = 0.8) throws -> MLDataTable {
-//        try .init(contentsOf: self).randomSplit(by: split, seed: 0).0
-//    }
-//}
+//        var resultStateNumber = objc_getAssociatedObject(self, kOBCodeSignStateKey)
+//        if (resultStateNumber) {
+//            return [resultStateNumber integerValue];
+//        }
+
+        // Determine code sign status
+        var resultState: OBCodeSignState = .OBCodeSignStateError
+
+        if let staticCode: SecStaticCode = ob_createStaticCode {
+            switch SecStaticCodeCheckValidityWithErrors(staticCode, SecCSFlags(rawValue: kSecCSBasicValidateOnly), nil, nil) {
+            case errSecSuccess: resultState = .OBCodeSignStateSignatureValid
+            case errSecCSUnsigned: resultState = .OBCodeSignStateUnsigned
+            case errSecCSSignatureFailed: resultState = .OBCodeSignStateSignatureInvalid
+            case errSecCSSignatureInvalid: resultState = .OBCodeSignStateSignatureInvalid
+            case errSecCSSignatureNotVerifiable: resultState = .OBCodeSignStateSignatureNotVerifiable
+            case errSecCSSignatureUnsupported: resultState = .OBCodeSignStateSignatureUnsupported
+            default: resultState = .OBCodeSignStateError
+            }
+        } else {
+            resultState = .OBCodeSignStateError
+        }
+
+        // Cache the result
+       // resultStateNumber = [NSNumber numberWithInteger:resultState];
+        // objc_setAssociatedObject(self, kOBCodeSignStateKey, resultStateNumber, OBJC_ASSOCIATION_RETAIN);
+        return resultState
+    }
+}
