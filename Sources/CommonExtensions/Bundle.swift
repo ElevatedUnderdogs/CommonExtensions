@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Security
 
 public extension Bundle {
 
