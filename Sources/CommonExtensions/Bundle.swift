@@ -5,9 +5,11 @@
 //  Created by Scott Lydon on 5/14/22.
 //
 
+#if os(macOS)
 import Foundation
 import Security
 
+@available(macOS 10.6, *)
 public extension Bundle {
 
     var displayName: String? {
@@ -72,3 +74,4 @@ public extension Bundle {
         }
     }
 }
+#endif
