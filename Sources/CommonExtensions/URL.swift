@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Security
 
 public extension URL {
 //    static var localFilePath: URL? {
@@ -61,7 +62,10 @@ public extension URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last?.appendingPathComponent(name)
     }
 
-    func save(text: String) throws {
+    /// Creates a file and writes to it.  If the file already exists at this location, then this writes to it
+    /// - Parameter text: text to write to the file.
+    func createFileAndWrite(text: String) throws {
+        assert(!Bundle.main.ob_isSandboxed, "Delete the sandbox key value pair in the entitlements")
         try text.write(to: self, atomically: true, encoding: .utf8)
     }
 
@@ -81,6 +85,14 @@ public extension URL {
         URL.bundlePath().flatMap { try? Data(contentsOf: $0) }
     }
 
+    /// **WARNING** This can only be used on Macos.  The iOS dandbox doesn't have access to desktop!
+    /// **WARNING** If you want to write to desktop files,
+    /// - consider creating a Macos app.
+    /// - Delete the app sandbox key value pair in the entitlements.
+    ///
+    ///  You can map through the folder like so: `appendingPathComponent("iOS/DataFrame/name.json")`
+    ///  Strategy: Sometimes it helps to read the files at the location, first to ensure you can reach the document leaf,
+    ///  and then attempt to write.
     static var desktop: URL? {
         try? FileManager.default.url(
             for: .desktopDirectory,
@@ -90,6 +102,8 @@ public extension URL {
         )
     }
 
+    ///  You can map through the folder like so:
+    ///  `appendingPathComponent("iOS/DataFrame/name.json")`
     static var documents: URL? {
         try? FileManager.default.url(
             for: .desktopDirectory,
@@ -99,26 +113,3 @@ public extension URL {
         )
     }
 }
-
-
-
-//public extension URL {
-//
-//
-//    /// Creates a model and returns it.
-//    /// - Parameter startTime:used to print the
-//    /// - Throws: throws an error when trying to create the model.
-//    /// - Returns: returns the model thats created.
-//    @discardableResult func createBoostedModel(startTime: Date = Date()) throws -> MLModel {
-//        let model: MLBoostedTreeClassifier = try .standard(trainingData: mlDataTable())
-//        try model.write(to: self, metadata: nil)
-//        print("completed in \(startTime.timeIntervalSinceNow / 60) minutes.  Please open the project and run.")
-//        return model.model
-//    }
-//
-//    /// Creates an MLDataTable with the contents at this url.
-//    /// The table splits by the split argument.
-//    func mlDataTable(by split: Double = 0.8) throws -> MLDataTable {
-//        try .init(contentsOf: self).randomSplit(by: split, seed: 0).0
-//    }
-//}
