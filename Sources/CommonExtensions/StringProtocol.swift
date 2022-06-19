@@ -28,38 +28,11 @@ public extension StringProtocol {
     func containsOrEmpty<T: StringProtocol>(other: T?) -> Bool {
         other.map { $0 == "" ? true : contains(other: $0) } ?? true
     }
-}
-
-// MARK: StringProtocol
-public extension StringProtocol {
 
     var data: Data { utf8.data }
-
-//    var decodingHexaUnicode: String {
-//        applyingTransform(.unicodeToAny, reverse: false)!
-//    }
-//
-//    var encodingHexaUnicode: String {
-//        applyingTransform(.anyToUnicode, reverse: false)!
-//    }
-//
-//    var decodingHex: String {
-//        applyingTransform(.hexToAny, reverse: false)!
-//    }
-//
-//    var encodingHexa: String {
-//        applyingTransform(.anyToHex, reverse: false)!
-//    }
-}
-
-
-public extension StringProtocol {
     var rows: [SubSequence] { split(whereSeparator: \.isNewline) }
     var columns: [SubSequence] { split(whereSeparator: \.isSemicolon) }
     var csvToMatrix: [[SubSequence]] { rows.map(\.columns) }
-}
-
-public extension StringProtocol {
 
     var matrix: [[String]] {
         components(separatedBy: "\n").map(\.csvRow)

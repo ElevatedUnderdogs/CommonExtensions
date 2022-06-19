@@ -6,8 +6,6 @@
 //
 
 import Foundation
-
-import Foundation
 import CoreLocation
 
 public extension CLLocationManager {
@@ -22,11 +20,6 @@ public extension CLLocationManager {
         }
     }
 
-//#if os(macOS, 10.12)
-//    static var alwaysAuthorized: Bool {
-//        CLLocationManager.authorizationStatus() == .authorizedAlways
-//    }
-//#endif
 
     func setFrequency(foreground: Bool) {
         if foreground {
@@ -37,5 +30,4 @@ public extension CLLocationManager {
             distanceFilter = 100
         }
     }
-
 }

@@ -39,12 +39,6 @@ public extension DateComponents {
         return firstMondayJune
     }
 
-//    static func memorialDay(year: Int, using calendar: Calendar = .newYork) -> DateComponents? {
-//        Date.memorialDay(year: year).map {
-//            calendar.dateComponents([.year, .month, .day, .weekday, .weekdayOrdinal], from: $0)
-//        }
-//    }
-
     static func easter(year: Int, using calendar: Calendar = .newYork) -> DateComponents? {
         // Easter calculation from Anonymous Gregorian algorithm
         // AKA Meeus/Jones/Butcher algorithm
@@ -68,32 +62,4 @@ public extension DateComponents {
             calendar.dateComponents([.year, .month, .day, .weekday, .weekdayOrdinal], from: $0)
         }
     }
-
-//    func isSTockMarketHoliday(using calendar: Calendar = .newYork) -> Bool {
-//        guard let year = year,
-//              let month = month,
-//              let day = day,
-//              let weekday = weekday,   // weekday is Sunday==1 ... Saturday==7
-//              let nthInstanceOfWeekdayInMonth = weekdayOrdinal,
-//              let easterDateComponents = DateComponents.easter(year: year, using: calendar),
-//              let memorialDay = DateComponents.memorialDay(year: year, using: calendar)?.day,
-//              let easterMonth = easterDateComponents.month,
-//              let easterDay = easterDateComponents.day
-//        else {
-//            return false
-//        }
-//
-//        switch (month, day, weekday, nthInstanceOfWeekdayInMonth) {
-//        case (1, 1, _, _): return true                      // Happy New Years
-//        case (1, _, 2, 3): return true                      // Martin Luther King - 3rd Mon in Jan
-//        case (2, _, 2, 3): return true                      // Presidents day
-//        case (easterMonth, easterDay - 2, _, _): return true// Good Friday: Friday, April 10
-//        case (5, memorialDay, _, _): return true            // Memorial Day
-//        case (7, 4, _, _): return true                      // Independence Day - 4th July
-//        case (9, _, 2, 1): return true                      // Labor Day - 1st Mon in Sept
-//        case (11, _, 5, 4): return true                     // Happy Thanksgiving - 4th Thurs in Nov
-//        case (12, 25, _, _): return true                    // Christmas/Happy Holiday
-//        default: return false
-//        }
-//    }
 }

@@ -14,23 +14,18 @@ public extension TimeInterval {
         return self / 60.0
     }
 
-
     var timeString: String {
         let minutes = Int(self) / 60 % 60,
         seconds = Int(self) % 60
         return String(format: "%02i:%02i", minutes, seconds)
     }
 
-    /**
-     Eastern time zone
-     */
+    /// Eastern time zone
     static var easternStandard: TimeZone {
         get {
             TimeZone(abbreviation: "ES") ?? TimeZone(abbreviation: "ET") ?? TimeZone(abbreviation: "EST") ?? TimeZone(abbreviation: "EDT")!
         }
     }
-    
-
 
     static func progress(in range: ClosedRange<Date>, current: Date = Date()) -> TimeInterval {
         progress(startDate: range.lowerBound, currentDate: current, endDate: range.upperBound)
@@ -62,14 +57,6 @@ public extension TimeInterval {
     func plus(_ other: Double?) -> Double? {
         other.map { self + $0 }
     }
-//
-//    func divided(by divisor: OverZero) -> Double {
-//        self / divisor.double
-//    }
-//
-//    func divided(byOptional divisor: OverZero?) -> Double? {
-//        divisor.map { self / $0.double }
-//    }
 
     /// EST I think.
     var tdDate: Date {
@@ -79,16 +66,6 @@ public extension TimeInterval {
     init(between first: Double, and second: Double) {
         self = first - ((first - second) / 2)
     }
-
-
-//    /// Rounding function
-//    /// - Parameter digit: 1 rounds to one digit, 2 rounds to the second digit after the decimal.
-//    /// - Returns: The rounded value.
-//    func roundedTo(digit: Int) -> Double {
-//        let exp = 10 ^^ digit
-//        let mult = Int(Double(exp) * self)
-//        return Double(mult) / Double(exp)
-//    }
 
     /// Can be useful as a component of the standard deviation.
     /// - Parameter otherNum: Takes the current - othernum
@@ -106,10 +83,6 @@ public extension TimeInterval {
             self = 0
         }
     }
-
-//    static func trend(_ early: OverZero?, _ later: Double?) -> Double? {
-//        later?.minus(early?.value.double)?.divided(byOptional: early)
-//    }
 
     /// chops off the decimal but returns nil if self is signed
     var uint: UInt?  { self >= 0 ? UInt(self) : nil }
@@ -133,7 +106,4 @@ public extension TimeInterval {
     ) -> ClosedRange<Double> {
         self - (self * percentDown * multiplier)...self + (self * percentUp * multiplier)
     }
-
-//    var trend: Trend { Trend(decimal) }
-//    var direction: Direction { Direction(decimal) }
 }
