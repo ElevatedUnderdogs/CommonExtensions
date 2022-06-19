@@ -78,4 +78,15 @@ public extension Bundle {
         }
     }
 }
+
+public extension URL {
+    /// Creates a file and writes to it.  If the file already exists at this location, then this writes to it
+    /// - Parameter text: text to write to the file.
+    func createFileAndWrite(text: String) throws {
+        if #available(macOS 10.6, *) {
+            assert(!Bundle.main.ob_isSandboxed, "Delete the sandbox key value pair in the entitlements")
+        }
+        try text.write(to: self, atomically: true, encoding: .utf8)
+    }
+}
 #endif
