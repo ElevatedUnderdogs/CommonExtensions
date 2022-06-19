@@ -5,8 +5,8 @@
 //  Created by Scott Lydon on 5/14/22.
 //
 
+
 import Foundation
-import Security
 
 public extension Bundle {
 
@@ -17,15 +17,22 @@ public extension Bundle {
     static var appName: String? {
         Bundle.main.infoDictionary?["CFBundleName"] as? String
     }
-    
+
     static var version: String? {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     }
 
     var appName: String {
         object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ??
-            object(forInfoDictionaryKey: "CFBundleName") as? String ?? ""
+        object(forInfoDictionaryKey: "CFBundleName") as? String ?? ""
     }
+}
+
+#if os(macOS)
+import Security
+
+@available(macOS 10.6, *)
+public extension Bundle {
 
     // MARK: - Sand box check
     // This is all needed to check if the app is in sandbox mode,
@@ -72,3 +79,4 @@ public extension Bundle {
         }
     }
 }
+#endif
