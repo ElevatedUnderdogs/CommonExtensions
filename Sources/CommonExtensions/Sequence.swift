@@ -19,27 +19,15 @@ public extension Sequence where Element: CustomStringConvertible {
     }
 }
 
-public extension Sequence {
-    var array: [Element] {
-        Array(self)
-    }
-}
-
 public extension Sequence where Element == UInt8 {
     var data: Data { .init(self) }
 }
 
-
-
-//public extension Sequence where Self: Collection, Element: Hashable {
-//    func homogenous(over: Decimal) -> Bool {
-//        frequency.values.max()!.decimal > self.count.decimal * over
-//    }
-//}
-
 public extension Sequence {
 
-  //  var array: [Element] { .init(self) }
+    var array: [Element] {
+        Array(self)
+    }
 
     func min<T: Comparable>(_ predicate: (Element) -> T)  -> Element? {
         self.min(by: { predicate($0) < predicate($1) })
