@@ -7,12 +7,6 @@
 
 import Foundation
 
-//public extension Numeric where Self: Comparable, Self: LosslessStringConvertible {
-//    var overZero: OverZero! {
-//        OverZero(description.decimal)
-//    }
-//}
-
 public extension Numeric {
 
     mutating func setAsProportionateHeight(

@@ -24,10 +24,6 @@ public extension Collection {
         }
     }
 
-//    subscript (safe index: Index) -> Element? {
-//        return indices.contains(index) ? self[index] : nil
-//    }
-
     var hasExactlyOne: Bool {
         return count == 1
     }
@@ -36,10 +32,6 @@ public extension Collection {
     subscript (safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
-//
-//    subscript (safe index: Index) -> Element? {
-//        indices.contains(index) ? self[index] : nil
-//    }
 
     subscript (safe intIndex: Int) -> Element? {
         self[safe: index(startIndex, offsetBy: intIndex)]
@@ -68,6 +60,10 @@ public extension Collection {
     func firstOfType<T>() -> T? {
         compactMap { $0 as? T }.first
     }
+
+    subscript(safe index: Index) -> Element.Wrapped? where Element: AnyOptional {
+        indices.contains(index) ? self[index].optional ?? nil : nil
+    }
 }
 
 public extension Collection where Element: Equatable {
@@ -81,10 +77,4 @@ public extension Collection where Element: Equatable {
 public extension Collection where Element: Hashable {
     var allEqual: Bool { isEmpty ? true : Set(self).count == 1 }
    // var unique: [Element] { self.set.array }
-}
-
-public extension Collection  {
-    subscript(safe index: Index) -> Element.Wrapped? where Element: AnyOptional {
-        indices.contains(index) ? self[index].optional ?? nil : nil
-    }
 }

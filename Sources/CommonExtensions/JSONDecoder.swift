@@ -8,23 +8,11 @@
 import Foundation
 
 
-
-//// MARK: - JSONDecoder
-//public extension JSONDecoder {
-//    static let decoder: JSONDecoder = {
-//        let decoder = JSONDecoder()
-//        decoder.keyDecodingStrategy = .convertFromSnakeCase
-//        decoder.dateDecodingStrategy =  .newYorkISO8601
-//        return decoder
-//    }()
-//}
-
-
-
 // MARK: JSONDecoder
 public extension JSONDecoder {
 
-   // static let iso8601 = JSONDecoder(dateDecodingStrategy: .iso8601)
+  //  @available(macOS 10.12, *)
+  //  static let iso8601 = JSONDecoder(dateDecodingStrategy: .iso8601)
 
     convenience init(dateDecodingStrategy: DateDecodingStrategy) {
         self.init()

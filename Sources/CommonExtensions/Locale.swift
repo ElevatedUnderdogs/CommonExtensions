@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public extension Locale {
     static let posix = Self(identifier: "en_US_POSIX")
 }

@@ -19,6 +19,22 @@ public extension ClosedRange where Bound == Date {
     func components(calendar: Calendar = .current) -> DateComponents {
         calendar.dateComponents([.day, .hour, .minute], from: lowerBound, to: upperBound)
     }
+
+    static var example: Self {
+        Date()...Calendar.current.date(byAdding: .day, value: 2, to: Date())!
+    }
+
+    func readable(locale: Locale = .current) -> String {
+        let dif = DateIntervalFormatter()
+        dif.dateStyle = .medium
+        dif.timeStyle = .none
+        dif.locale = .current
+        return dif.string(from: lowerBound, to: upperBound)
+    }
+
+    var timeInterval: TimeInterval {
+        upperBound.timeIntervalSince(lowerBound)
+    }
 }
 
 public extension ClosedRange {
@@ -33,36 +49,7 @@ public extension ClosedRange {
         guard lower < upper else { return nil }
         return lower...upper
     }
-}
 
-
-public extension ClosedRange where Bound == Date {
-
-//    var minuteCount: Int {
-//        (lowerBound.timeIntervalSince(upperBound) / 60.0).int
-//    }
-
-    static var example: Self {
-        Date()...Calendar.current.date(byAdding: .day, value: 2, to: Date())!
-    }
-
-    func readable(locale: Locale = .current) -> String {
-        let dif = DateIntervalFormatter()
-        dif.dateStyle = .medium
-        dif.timeStyle = .none
-        dif.locale = .current
-        return dif.string(from: lowerBound, to: upperBound)
-    }
-}
-
-
-public extension ClosedRange where Bound == Date {
-    var timeInterval: TimeInterval {
-        upperBound.timeIntervalSince(lowerBound)
-    }
-}
-
-public extension ClosedRange {
     func overlapsSpace(_ other:Self) -> Bool {
         (other.lowerBound < lowerBound && lowerBound < other.upperBound) ||
             (other.lowerBound < upperBound && upperBound < other.upperBound) ||
@@ -70,23 +57,3 @@ public extension ClosedRange {
             (lowerBound < other.upperBound && other.upperBound < upperBound)
     }
 }
-
-public extension ClosedRange where Bound == Date {
-
-//    var minuteCount: Int {
-//        (lowerBound.timeIntervalSince(upperBound) / 60.0).int
-//    }
-//
-//    static var example: Self {
-//        Date()...Calendar.current.date(byAdding: .day, value: 2, to: Date())!
-//    }
-//
-//    func readable(locale: Locale = .current) -> String {
-//        let dif = DateIntervalFormatter()
-//        dif.dateStyle = .medium
-//        dif.timeStyle = .none
-//        dif.locale = .current
-//        return dif.string(from: lowerBound, to: upperBound)
-//    }
-}
-

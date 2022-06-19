@@ -13,10 +13,6 @@ public extension Encodable {
       guard let data = try? JSONEncoder().encode(self) else { return nil }
       return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
     }
-}
-
-
-public extension Encodable {
 
     /// Converting object to postable dictionary
     /// SLashes are added when printing an optional string

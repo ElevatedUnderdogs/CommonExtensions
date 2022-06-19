@@ -7,77 +7,6 @@
 
 import Foundation
 
-
-public extension Decimal {
-    /// returns 0 if positive, current value * -1 if negative
-    /// Careful, the compiler reads: "-93.4.negativeOnly" as "-1 * 93.4.negativeOnly" not as "(-93.4).negativeOnly"
-    var negativeOnly: Decimal { self < 0 ? self * -1 : 0 }
-
-    /// returns 0 if negative, self value if positive
-    var positiveOnly: Decimal { self > 0 ? self : 0 }
-
-}
-
-public extension Decimal {
-    var isOverZero: Bool {
-        self > 0 && !isNaN
-    }
-}
-
-public extension Decimal {
-    var isPositive: Bool {
-        self >= .zero && !isNaN
-    }
-}
-
-public extension Decimal {
-    func isWithin(_ range: ClosedRange<Decimal>) -> Bool {
-        range ~= self && !isNaN
-    }
-}
-
-public extension Decimal {
-    var isNotZero: Bool {
-        value != .zero && !value.isNaN
-    }
-}
-
-
-//
-//public extension Direction {
-//
-//    /// You can initialize the direction by passing the dependent value as a Decimal.
-//    /// - Parameter dependent: Recommend: `model.prediction(input: frame.modelInput()!).dependent.Decimal`
-//    init?(dependent: Decimal?) {
-//        if let direction = dependent?.direction {
-//            self = direction
-//        } else {
-//            return nil
-//        }
-//    }
-//
-//    var polar: Polar? {
-//        switch self {
-//        case .up: return .up
-//        case .down: return .down
-//        case .level: return nil
-//        }
-//    }
-//
-//    enum Polar {
-//        case up
-//        case down
-//
-//        var multiplier: Decimal {
-//            switch self {
-//            case .up: return -1
-//            case .down: return 1
-//            }
-//        }
-//    }
-//}
-
-
 public enum Magnitudey {
     case negative, zero, positive
 
@@ -89,37 +18,34 @@ public enum Magnitudey {
 }
 
 public extension Decimal {
+    /// returns 0 if positive, current value * -1 if negative
+    /// Careful, the compiler reads: "-93.4.negativeOnly" as "-1 * 93.4.negativeOnly" not as "(-93.4).negativeOnly"
+    var negativeOnly: Decimal { self < 0 ? self * -1 : 0 }
+
+    /// returns 0 if negative, self value if positive
+    var positiveOnly: Decimal { self > 0 ? self : 0 }
+
+    var isOverZero: Bool {
+        self > 0 && !isNaN
+    }
+
+    var isPositive: Bool {
+        self >= .zero && !isNaN
+    }
+
+    func isWithin(_ range: ClosedRange<Decimal>) -> Bool {
+        range ~= self && !isNaN
+    }
+
+    var isNotZero: Bool {
+        value != .zero && !value.isNaN
+    }
 
     var mag: Magnitudey {
         self > .zero ? .positive :
             self < .zero ? .negative:
             .zero
     }
-}
-
-public extension AdditiveArithmetic where Self: Comparable {
-
-    var mag: Magnitudey {
-        self > .zero ? .positive :
-            self < .zero ? .negative :
-            .zero
-    }
-}
-
-public extension Sequence where Element: AdditiveArithmetic {
-    var sum: Element {
-        reduce(.zero, +)
-    }
-}
-
-extension Decimal: LosslessStringConvertible {
-
-    public init?(_ description: String) {
-        self.init(string: description.numberLinted)
-    }
-}
-
-public extension Decimal {
 
     /// Rounds a value
     /// - Parameters:
@@ -137,48 +63,15 @@ public extension Decimal {
         rounded(.up, scale: 7)
     }
 
-//    func roundedNotZero(scale: Int = 0) -> NotZero {
-//        let buffer = self
-//        return (buffer.rounded(.down, scale: scale) == 0 ?
-//                    buffer.rounded(.up, scale: scale) :
-//                    buffer.rounded(.down, scale: scale)).notZero
-//    }
-
     var whole: Self { rounded( self < 0 ? .up : .down) }
 
     var fraction: Self { self - whole }
 
     var isWholeNumber: Bool { whole == self }
 
-  //  var positive: Positive { .init(stringLiteral: string) }
-
     var isNegative: Bool { self < 0 }
 
     var int: Int { whole.number.intValue }
-
-    ///  Inits a target price to place an order with, either buy or sell price target
-    ///
-    /// **For Example**
-    /// Market price = 10
-    /// I want to buy
-    /// Slippage is about 1cent
-    /// I want 10 iterations
-    /// So 10 -( 0.1 * 10) or $9 bid,
-    /// Then 10 - (0.1 * 9) or $9.10 bid
-    ///
-    /// - Parameters:
-    ///   - worstPriceOrMarket: worst price willing to accept or Market price.
-    ///   - direction: estimated direction of the equity.
-    ///   - increment: increment percent.  If you are targeting 1% of the worst price or market price to increment then pass 0.01.
-    ///   - multiplier: The multiplier of the increment.
-//    init(
-//        worstPriceOrMarket: Self,
-//        direction: Direction.Polar,
-//        percent: Self,
-//        multiplier: Int
-//    ) {
-//        self = worstPriceOrMarket + direction.multiplier * (percent * worstPriceOrMarket * multiplier.decimal)
-//    }
 
     var double: Double { Double(truncating: self as NSNumber) }
 
@@ -187,10 +80,6 @@ public extension Decimal {
     func minus(_ other: Self?) -> Self? { other.map { self - $0 } }
 
     func plus(_ other: Self?) -> Self? { other.map { self + $0 }}
-
-//    func divided(by divisor: OverZero) -> Self { self / divisor.value }
-//
-//    func divided(byOptional divisor: OverZero?) -> Self? { divisor.map { self / $0 } }
 
     var abs: Self { Swift.abs(self) }
 
@@ -209,18 +98,12 @@ public extension Decimal {
         magnitude < threshold ? .zero : self
     }
 
-  //  var notZero: NotZero { NotZero(self)! }
-
     mutating func correctPrecisionError() {
         if self != 0 && self < 0.000_000_000_000_01 && self > -0.000_000_000_000_01 {
             print("WARNING: potential precision issue!: \(self)")
             self = 0
         }
     }
-
-//    static func trend(_ early: Decimal?, _ later: Decimal?) -> Decimal? {
-//        later?.minus(early)?.divided(byOptional: early?.overZero)
-//    }
 
     /// chops off the decimal but returns nil if self is signed
     var uint: UInt? { self >= 0 ? UInt(whole.string) : nil }
@@ -238,38 +121,6 @@ public extension Decimal {
     ) -> ClosedRange<Decimal> {
         self - (self * percentDown * multiplier)...self + (self * percentUp * multiplier)
     }
-
-
-    /// Should init with TransactTarget type.  Inits a target price to place an order with.
-    ///
-    /// **For Example**
-    /// Market price = 10
-    /// I want to buy
-    /// Slippage is about 1cent
-    /// I want 10 iterations
-    /// So 10 -( 0.1 * 10) or $9 bid,
-//    /// Then 10 - (0.1 * 9) or $9.10 bid
-//    ///
-//    /// - Parameters:
-//    ///   - worstPriceOrMarket: worst price willing to accept or Market price.
-//    ///   - direction: estimated direction of the equity.
-//    ///   - increment: increment percent.  If you are targeting 1% of the worst price or market price to increment then pass 0.01.
-//    ///   - iterations: The multiplier of the increment.
-//    init(
-//        worstPriceOrMarket: Decimal,
-//        direction: Direction,
-//        increment percent: Decimal,
-//        iterations: Int
-//    ) {
-//        switch direction {
-//        case .up:
-//            self = worstPriceOrMarket - (percent * worstPriceOrMarket * iterations.decimal)
-//        case .down:
-//            self = worstPriceOrMarket + (percent * worstPriceOrMarket * iterations.decimal)
-//        case .level:
-//            fatalError("Should not transact")
-//        }
-//    }
 
     var number: NSDecimalNumber { self as NSDecimalNumber }
 
@@ -306,17 +157,13 @@ public extension Decimal {
         let exp = pow(Decimal(10), digit)
         return (exp * self).whole / exp
     }
-//
-//    var trend: Trend { Trend(self) }
-//
-//    var direction: Trend { Direction(self) }
 
     var squareRoot: Decimal? {
         number.doubleValue.squareRoot().string.decimal
     }
-}
 
-public extension Decimal/*: HasValue*/ {
+    // MARK: - HasValue
+
     init?(_ value: Decimal?) {
         guard let value = value else { return nil }
         self = value
@@ -327,4 +174,27 @@ public extension Decimal/*: HasValue*/ {
     }
 
     var value: Decimal { self }
+}
+
+
+public extension AdditiveArithmetic where Self: Comparable {
+
+    var mag: Magnitudey {
+        self > .zero ? .positive :
+            self < .zero ? .negative :
+            .zero
+    }
+}
+
+public extension Sequence where Element: AdditiveArithmetic {
+    var sum: Element {
+        reduce(.zero, +)
+    }
+}
+
+extension Decimal: LosslessStringConvertible {
+
+    public init?(_ description: String) {
+        self.init(string: description.numberLinted)
+    }
 }

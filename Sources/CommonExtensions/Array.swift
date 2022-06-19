@@ -7,13 +7,6 @@
 
 import Foundation
 
-public extension Array {
-
-    func noNils<T>() -> Bool where Element == T? {
-        allSatisfy { $0 != nil }
-    }
-}
-
 public extension Array where Element: Hashable {
 
     /// Big O(N) version.
@@ -27,26 +20,22 @@ public extension Array where Element: Hashable {
          }
          return buffer
     }
-}
 
-public extension Array {
-    var secondToLast: Element? {
-        let target: Index = count - 2
-        return indices.contains(target) ? self[target] : nil
-    }
-}
-
-public extension Array where Element: Hashable {
     var set: Set<Element> {
         Set(self)
     }
 }
 
+public extension Array where Element: Hashable & Equatable {
 
-
-public extension Array {
-    var hasElements: Bool {
-        return !isEmpty
+    var uniqueOrdered: [Element] {
+        var buffer: [Element] = []
+        var added = Set<Element>()
+        for element in self where !added.contains(element) {
+            added.insert(element)
+            buffer.append(element)
+        }
+        return buffer
     }
 }
 
@@ -54,6 +43,27 @@ public extension Array {
 infix operator ???
 
 public extension Array {
+
+    mutating func removeLastSafe() -> Element? {
+        print("The count is: \(count)")
+        if count > 0 {
+            return removeLast()
+        }
+        return nil
+    }
+
+    func noNils<T>() -> Bool where Element == T? {
+        allSatisfy { $0 != nil }
+    }
+
+    var secondToLast: Element? {
+        let target: Index = count - 2
+        return indices.contains(target) ? self[target] : nil
+    }
+
+    var hasElements: Bool {
+        !isEmpty
+    }
 
     // MARK - access
 
@@ -107,12 +117,26 @@ public extension Array {
 
 
 public extension Array where Element == Any {
+
     var asText: String {
         var texts: String = ""
         for element in self {
             texts.append(String(describing: element) + "\n" + "-".times(30).joined() + "\n")
         }
         return texts
+    }
+
+    static func permutate<A, B>(
+        first: [A],
+        second: [B]
+    ) -> [(A, B)] {
+        var matrix: [(A, B)] = []
+        for fItem in first {
+            for sItem in second {
+                matrix.append((fItem, sItem))
+            }
+        }
+        return matrix
     }
 }
 
@@ -143,15 +167,7 @@ public extension Array where Element: Equatable {
     }
 }
 
-public extension Array where Element == String {
-    var asString: String {
-        var string = ""
-        for element in self {
-            string.append(" " + element)
-        }
-        return string
-    }
-}
+
 
 public extension Array where Element == Int {
     var strings: [String] {
@@ -159,18 +175,7 @@ public extension Array where Element == Int {
     }
 }
 
-public extension Array where Element: Hashable & Equatable {
 
-    var uniqueOrdered: [Element] {
-        var buffer: [Element] = []
-        var added = Set<Element>()
-        for element in self where !added.contains(element) {
-            added.insert(element)
-            buffer.append(element)
-        }
-        return buffer
-    }
-}
 
 
 
@@ -242,6 +247,14 @@ public extension Array where Element == String {
             return self
         }
     }
+
+    var asString: String {
+        var string = ""
+        for element in self {
+            string.append(" " + element)
+        }
+        return string
+    }
 }
 
 public extension Array where Element == Date {
@@ -259,38 +272,7 @@ public extension Array where Element == Date {
             first = first.addingTimeInterval(timeInterval)
         }
     }
-
-//    /// Assumes self is an array of dates.
-//    var prettyPrintMissing: String {
-//        """
-//
-//        *******
-//        Missing Dates in a row: \(count)
-//        \(map(\.newYorkTime).joined(separator: "\n"))
-//        --------
-//
-//        """
-//    }
 }
-
-public extension Array where Element == Any {
-
-    static func permutate<A, B>(
-        first: [A],
-        second: [B]
-    ) -> [(A, B)] {
-        var matrix: [(A, B)] = []
-        for fItem in first {
-            for sItem in second {
-                matrix.append((fItem, sItem))
-            }
-        }
-        return matrix
-    }
-}
-
-
-
 
 public extension Array where Element == Array<String> {
     var removeNils: Self {

@@ -9,6 +9,24 @@ import Foundation
 
 public extension String {
 
+
+    func hasOne(of strings: [String]) -> Bool {
+        strings.first(where: { contains($0) }) != nil
+    }
+
+    var noNumbers: String {
+        components(separatedBy: CharacterSet.decimalDigits).joined()
+    }
+
+
+    var fullRange: NSRange {
+        NSRange(location: 0, length: utf16.count)
+    }
+
+    var range: NSRange {
+        NSRange(self.startIndex..., in: self)
+    }
+
     // For apns primarily
     static var environmentString: String {
         #if DEBUG

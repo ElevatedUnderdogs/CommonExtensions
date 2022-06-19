@@ -53,36 +53,10 @@ public extension Data {
     func codable<T: Codable>() -> T? {
         T(self)
     }
-}
 
-// MARK: Data
-// public extension Data {
-
-   // var string: String? { String(data: self, encoding: .utf8) }
-//
-//    var decodingHex: Data? {
-//        string.map(\.decodingHex.data)
-//    }
-
-//    func decodedObject<T: Decodable>(using decoder: JSONDecoder = .iso8601) throws -> T {
-//        try decoder.decode(T.self, from: self)
-//    }
-// }
-
-
-// MARK: - Data
-//public extension Data {
-//    func decodedObject<T: Decodable>(using decoder: JSONDecoder = JSONDecoder()) throws -> T {
-//        try decoder.decode(T.self, from: self)
-//    }
-//}
-
-public extension Data {
-
-   var ascii: String? {
-       String(data: self, encoding: .ascii)
-   }
-
+    var ascii: String? {
+        String(data: self, encoding: .ascii)
+    }
 
     func string(encoding: String.Encoding = .utf8) -> String? {
         String(data: self, encoding: encoding)
@@ -92,29 +66,18 @@ public extension Data {
         String(data: self, encoding: .utf8)
     }
 
-//   func serialized() throws -> [String: Any]?  {
-//       try JSONSerialization.jsonObject(with: self, options: []) as? [String: Any]
-//   }
-//
-//   func jsonDictionary() throws -> [String: Any] {
-//       guard let unwrappedJson = try JSONSerialization.jsonObject(with: self, options: []) as? [String: Any] else {
-//           throw GenericError(text: "Warning: we were able to serialize the json but not cast it a [String: Any]...This would seem imposible without catching an error.")
-//       }
-//       return unwrappedJson
-//   }
-
-   func append(fileURL: URL) throws {
-       if let fileHandle = FileHandle(forWritingAtPath: fileURL.path) {
-           defer {
-               fileHandle.closeFile()
-           }
-           fileHandle.seekToEndOfFile()
-           fileHandle.write(self)
-       }
-       else {
-           try write(to: fileURL, options: .atomic)
-       }
-   }
+    func append(fileURL: URL) throws {
+        if let fileHandle = FileHandle(forWritingAtPath: fileURL.path) {
+            defer {
+                fileHandle.closeFile()
+            }
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(self)
+        }
+        else {
+            try write(to: fileURL, options: .atomic)
+        }
+    }
 
     var sortedString: String {
         let sorted = jsonDictionary?.sortedTuples

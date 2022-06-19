@@ -25,24 +25,20 @@ public extension Dictionary {
     var hasContents: Bool {
         !keys.isEmpty
     }
-}
-
-
-//public extension Dictionary where Key == UIImagePickerController.InfoKey, Value == Any {
-//
-//    var stringAnyDictionary: [String: Any] {
-//        return [String: Any](uniqueKeysWithValues: map {key, value in (key.rawValue, value)})
-//    }
-//}
-
-
-public extension Dictionary  {
 
     var hasElements: Bool {
         for (_, _) in self {
             return true
         }
         return false
+    }
+
+    func mergeReplacingCurrent(with dict: [Key: Value]) -> Self {
+        merging(dict) { $1 }
+    }
+
+    var queryString: String {
+        reduce("") { $0 + "\($1.key)=\($1.value)&"}.dropLast().string
     }
 }
 
@@ -74,45 +70,9 @@ public extension Dictionary where Value == Int {
 public extension Dictionary where Key ==  String, Value == Double {
 
     var json: [String: String] {
-        return mapValues { String($0) }
+        mapValues { String($0) }
     }
 }
-
-
-public extension Dictionary where Key == String, Value == Any {
-    var success: Bool {
-        guard let success = self["success"] as? Int else { return false }
-        return success.boolValue
-    }
-
-    var databaseTimeLapse: Float? {
-        return self["databaseTimeLapse"] as? Float
-    }
-
-    var serversideOnlyTimeLapse: Float? {
-        return self["serversideOnlyTimeLapse"] as? Float
-    }
-
-    var emailIsAvailable: Bool {
-        return true
-    }
-
-    var userIsBlocked: Bool {
-        return true
-    }
-
-
-    func value<T>(for key: String) -> T? {
-        if let value = self[key] as? T {
-            return value
-        } else {
-            print("Warning: parsing failed for key: \(key)")
-            return nil
-        }
-    }
-}
-
-
 
 public typealias DictionaryAction = ([String: Any]) -> Void
 
@@ -124,12 +84,6 @@ func += <K, V> (left: inout [K:V], right: [K:V]) {
 }
 
 public extension Dictionary where Key == String, Value == String {
-//    static func forAccess(
-//        _ token: String = Bundle.td_AccessToken,
-//        moreHeaders: [String: String] = [:]
-//    ) -> Self {
-//        ["Authorization": "Bearer " + token].mergeReplacingCurrent(with: moreHeaders)
-//    }
 
     var stringFile: String {
         map { "\"" + $0.0  + "\" = \"" +  $0.1 + "\";" }.joined(separator: "\n")
@@ -143,37 +97,7 @@ public extension Dictionary where Key == String, Value == String {
     }
 }
 
-
-
 public extension Dictionary where Key == String, Value == Any {
-
-//    var data: Data? {
-//        try? NSKeyedArchiver.archivedData(
-//            withRootObject: self,
-//            requiringSecureCoding: false
-//        )
-//    }
-//
-//    init(
-//        _ data: Data?,
-//        _ urlResponse: URLResponse?,
-//        _ error: Error?,
-//        _ line: Int,
-//        _ file: String,
-//        _ urlString: String
-//    ) throws {
-//        guard let data = data else {
-//            throw GenericError(text: "ERROR: data was nil for the call from: \(urlString), ")
-//        }
-//        do {
-//            guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-//                throw GenericError(text: "Warning: we were able to serialize the json but not cast it a [String: Any]...This would seem imposible without catching an error.")
-//            }
-//            self = json
-//        } catch {
-//            throw GenericError(text: "file: \(file) \n" + "line: \(line)" + error.localizedDescription + "for \(urlString)")
-//        }
-//    }
 
     var asJSON: String? {
         try? JSONSerialization.data(
@@ -182,37 +106,21 @@ public extension Dictionary where Key == String, Value == Any {
         ).ascii
     }
 
-    static func parameters(
-        _ refreshToken: String,
-        _ apiKey: String = "FMUIJZGTI7IV08OAEIMTXGA6Y9TNRYEJ"
-    ) -> Self {
-        [
-            "grant_type":"refresh_token",
-            "refresh_token": refreshToken,
-            "access_type":"offline",
-            "client_id": apiKey
-        ]
+    var success: Bool {
+        guard let success = self["success"] as? Int else { return false }
+        return success.boolValue
+    }
+
+    func value<T>(for key: String) -> T? {
+        if let value = self[key] as? T {
+            return value
+        } else {
+            print("Warning: parsing failed for key: \(key)")
+            return nil
+        }
     }
 }
 
-
-public extension Dictionary {
-
-    func mergeReplacingCurrent(with dict: [Key: Value]) -> Self {
-        merging(dict) { $1 }
-    }
-
-    var queryString: String {
-        reduce("") { $0 + "\($1.key)=\($1.value)&"}.dropLast().string
-    }
-}
-
-//public extension Dictionary where Key: DoubleConvertible, Value == Double {
-//
-//    var score: Double {
-//        reduce(0) { $0 + $1.key.double * $1.value }
-//    }
-//}
 
 public extension Dictionary where Value == Double {
 
@@ -220,19 +128,13 @@ public extension Dictionary where Value == Double {
         self[key] = self[key].zeroIfNil + value
     }
 }
+
 public extension Dictionary where Value == Decimal {
 
     mutating func add(_ value: Decimal, for key: Key) {
         self[key] = value + self[key].zeroIfNil
     }
 }
-
-//public extension Dictionary where Key == String, Value == Double {
-//    var score: Double {
-//        reduce(0) { $0 + ($1.key.trend?.double ?? .zero) * $1.value }
-//    }
-//}
-
 
 public extension Dictionary where Key: Comparable {
     var sortedTuples: [(Key, Value)] {

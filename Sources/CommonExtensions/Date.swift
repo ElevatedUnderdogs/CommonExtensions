@@ -91,18 +91,6 @@ public extension Date {
         return dateFormatter.string(from: self)
     }
 
-//    var entryDate: String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = kMessaging_MMMddyyyy_FormatTypeI_Txt
-//        return dateFormatter.string(from: self)
-//    }
-//
-//    var fullEntryDate: String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = kDateFormat_yyyy_MM_dd_Txt
-//        return dateFormatter.string(from: self)
-//    }
-
     var quarterDisplayStartDate: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d"
@@ -121,12 +109,6 @@ public extension Date {
         return dateFormatter.string(from: self)
     }
 
-//    var readableDate: String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = kDateFormat_MMMMddyyyy
-//        return dateFormatter.string(from: self)
-//    }
-
     func totalNumberOfDays(endDate: Date) -> Int {
         Calendar.current.dateComponents([.day], from: self, to: endDate).day ?? 0
     }
@@ -140,12 +122,6 @@ public extension Date {
         let totalWeeks = Calendar.current.dateComponents([.month], from: self, to: endDate).month
         return totalWeeks ?? 0
     }
-
-//    var graphDate: String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = kMonthDateYearFormat_TypeIII
-//        return dateFormatter.string(from: self)
-//    }
 
     var monthOfDateInInt: String {
         let dateFormatter = DateFormatter()
@@ -267,31 +243,16 @@ public extension Date {
         return df.string(from: self)
     }
 
-//    var time: String {
-//        Formatter.time.string(from: self)
-//    }
-//
-//    var dateOnly: String {
-//        Formatter.dateOnly.string(from: self)
-//    }
-
-
     var isToday: Bool { isToday() }
 
     func isToday(using calendar: Calendar = .current) -> Bool {
         calendar.isDateInToday(self)
     }
 
-//    var timeOfDay: String {
-//        DateFormatter.currentTimeOfDay.string(from: self)
-//    }
-
     func settingHour(bySettingHour hour: Int, minute: Int = 0, second: Int = 0,using calendar: Calendar = .current) -> Date? {
         calendar.date(bySettingHour: hour, minute: minute, second: second, of: self)
     }
-}
 
-public extension Date {
     mutating func add(_ component: Calendar.Component, value: Int, wrappingComponents: Bool = false, using calendar: Calendar = .newYork) {
         self = adding(component, value: value, wrappingComponents: wrappingComponents, using: calendar)
     }
@@ -299,96 +260,3 @@ public extension Date {
         calendar.date(byAdding: component, value: value, to: self)!
     }
 }
-
-
-// MARK: - String From Date
-/// warning: do not modify any of the shared formatter's properties
-public extension Date {
-
-//    var newYorkISO8601: String { Formatter.newYorkISO8601.string(from: self) }
-//
-//    var newYorkTime: String { Formatter.newYorkTime.string(from: self) }
-//
-//    var localTime: String { Formatter.localTime.string(from: self) }
-//
-//    var iso8601: String { Formatter.iso8601.string(from: self) }
-//
-//    var iso8601withFractionalSeconds: String { Formatter.iso8601withFractionalSeconds.string(from: self) }
-//
-//    var iso8601NewYorkWithTZ: String { Formatter.iso8601NewYorkWithTZ.string(from: self) }
-//
-//    var csvTimeNewYork: String { Formatter.csvTimeNewYork.string(from: self) }
-//
-//    func quarter(using calendar: Calendar = .newYork) -> String {
-//        if calendar == .newYork {
-//            return "Q" + Formatter.nyQuarter.string(from: self)
-//        }
-//        print("WARNING a static quarter formatter was not provided for calendar: ", calendar, ".  This is inefficient.")
-//        let formatter = DateFormatter()
-//        formatter.calendar = calendar
-//        formatter.timeZone = calendar.timeZone
-//        formatter.dateFormat = "Q"
-//        return  "Q" + formatter.string(from: self)
-//    }
-
-
-//    func monthSymbol(using calendar: Calendar = .newYork) -> String {
-//        if calendar == .newYork {
-//            return Formatter.nyMonthSymbol.string(from: self)
-//        }
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.calendar = calendar
-//        dateFormatter.locale = .posix
-//        dateFormatter.timeZone = calendar.timeZone
-//        dateFormatter.dateFormat = "LLLL"
-//        return dateFormatter.string(from: self)
-//    }
-
-//
-//    /// format: "yyyy-MM-dd" for example 2006-06-01
-//    func readableDate(calendar: Calendar) -> String {
-//        if calendar == .newYork {
-//            return Formatter.readableNY.string(from: self)
-//        } else if calendar == .current {
-//            return Formatter.readableCurrent.string(from: self)
-//        }
-//        print("WARNING a static readable formatter was not provided for calendar: ", calendar, ".  This is inefficient.")
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        dateFormatter.calendar = calendar
-//        dateFormatter.timeZone = calendar.timeZone
-//        return dateFormatter.string(from: self)
-//    }
-
-//    /// Format: "MM_dd_yy_HH_mm"
-//    func readableDateTime(calendar: Calendar) -> String {
-//        if calendar == .newYork {
-//            return Formatter.readableDateTimeNY.string(from: self)
-//        } else if calendar == .current {
-//            return Formatter.readableDateTimeCurrent.string(from: self)
-//        }
-//        print("WARNING a static readable formatter was not provided for calendar: ", calendar, ".  This is inefficient.")
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "MM_dd_yy_HH_mm"
-//        dateFormatter.calendar = calendar
-//        dateFormatter.timeZone = calendar.timeZone
-//        return dateFormatter.string(from: self)
-//    }
-}
-//
-//public extension Date {
-//
-//    var isToday: Bool { isToday() }
-//
-//    func isToday(using calendar: Calendar = .current) -> Bool {
-//        calendar.isDateInToday(self)
-//    }
-//
-//    var timeOfDay: String {
-//        DateFormatter.currentTimeOfDay.string(from: self)
-//    }
-//
-//    func settingHour(bySettingHour hour: Int, minute: Int = 0, second: Int = 0,using calendar: Calendar = .current) -> Date? {
-//        calendar.date(bySettingHour: hour, minute: minute, second: second, of: self)
-//    }
-//}
