@@ -167,17 +167,11 @@ public extension Array where Element: Equatable {
     }
 }
 
-
-
 public extension Array where Element == Int {
     var strings: [String] {
         return map { String($0) }
     }
 }
-
-
-
-
 
 public extension Array where Element == [String] {
 
