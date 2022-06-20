@@ -66,7 +66,7 @@ public extension Collection {
     }
 }
 
-extension Collection where Self: Encodable, Element: Codable {
+public extension Collection where Self: Encodable, Element: Codable {
 
     var jsonString: String? {
         let encoder = JSONEncoder()
