@@ -52,6 +52,32 @@ public extension Int {
     var string: String {
         String(self)
     }
+
+    /// Creates ranges for everyCount
+    ///
+    /// Input:
+    /// self = 20
+    /// everyCount = 10
+    /// Output: [0...9, 10...19]
+    ///
+    /// Input:
+    /// self = 15
+    /// everyCount = 4
+    /// Output: [0...3, 4...7, 8...11, 12...14]
+    func indexRanges(for everyCount: Int) -> [ClosedRange<Int>] {
+        var ranges: [ClosedRange<Int>] = []
+        var start = 0
+        var end = everyCount - 1
+        while end < self {
+            ranges.append(start...end)
+            start += everyCount
+            end += everyCount
+        }
+        if start < self {
+            ranges.append(start...self - 1)
+        }
+        return ranges
+    }
 }
 
 public extension Int64 {

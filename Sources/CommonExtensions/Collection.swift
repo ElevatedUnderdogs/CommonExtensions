@@ -66,6 +66,15 @@ public extension Collection {
     }
 }
 
+extension Collection where Self: Encodable, Element: Codable {
+
+    var jsonString: String? {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        return try? String(data: encoder.encode(self), encoding: .utf8)
+    }
+}
+
 public extension Collection where Element: Equatable {
 
     func isEmptyOr(has element: Element) -> Bool {
