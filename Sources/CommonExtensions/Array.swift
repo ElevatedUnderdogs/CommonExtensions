@@ -195,6 +195,41 @@ public extension Array where Element == [String] {
 
 public extension Array where Element == String {
 
+    var characterCount: Int {
+        map(\.count).sum
+    }
+
+    var wordCount: Int {
+        flatMap(\.words).count
+    }
+
+    /// Groups strings by everyCount
+    ///
+    /// Input:
+    /// self = ["one", "two", "three"]
+    /// everyCount = 2
+    /// Output:
+    /// ["onetwo", "three"]
+    ///
+    /// Input:
+    /// self = ["one", "two", "three"]
+    /// everyCount = 4
+    /// Output:
+    /// ["onetwothree"]
+    ///
+    /// Input:
+    /// self = ["one", "two", "three"]
+    /// everyCount = 1
+    /// Output:
+    /// ["one", "two", "three"]
+    ///
+    /// One liner!
+    func grouped(everyCount: Int) -> [String] {
+        count.indexRanges(for: everyCount).map {
+            self[$0].joined()
+        }
+    }
+
     var csvCommaSeparatedNewLine: String {
         joined(separator: ",") + "\n"
     }

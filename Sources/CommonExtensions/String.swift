@@ -9,6 +9,68 @@ import Foundation
 
 public extension String {
 
+    var words: [String] {
+        var words: [String] = []
+        enumerateSubstrings(in: startIndex..., options: [.localized, .byWords]) { tag, _, _, _ in
+            words.append(tag ?? "")
+        }
+        return words
+    }
+
+    /// Gets sentences from the string, then groups those sentences in order,
+    /// not letting the total word count of those grouped sentences to exceed the maxWordCount.
+    /// If a sentence is greater than the max word count, allow that sentence without joining with another. Do not split any sentence. Include all sentences.
+    ///
+    /// Input:
+    /// self = "I am here. Go over there.  Apples are great. How are you? Cows are really really bad."
+    /// maxWordCount = 3
+    /// Output: ["I am here. ", "Go over there.  ", "Apples are great. ", "How are you? ",  "Cows are really really bad."]
+    ///
+    /// Input:
+    /// self = "I am here. Go over there.  Apples are great. How are you? Cows are really really bad."
+    /// maxWordCount = 8
+    /// Output: ["I am here. Go over there.  ", "Apples are great. How are you? ",  "Cows are really really bad."]
+    ///
+    /// one liner!
+    func sentencesGrouped(maxWordCount: Int = 100) -> [String] {
+        sentences.reduce([String]()) { (result, sentence) -> [String] in
+            guard let last = result.last else { return [sentence] }
+            let lastWordCount = last.words.count
+            let sentenceWordCount = sentence.words.count
+            if lastWordCount + sentenceWordCount <= maxWordCount {
+                return result.dropLast() + [last + " " + sentence]
+            } else {
+                return result + [sentence]
+            }
+        }
+    }
+
+
+    var sentences: [String] {
+        var sentences: [String] = []
+        enumerateSubstrings(in: startIndex..., options: [.localized, .bySentences]) { tag, _, _, _ in
+            sentences.append(tag ?? "")
+        }
+        return sentences
+    }
+
+    /// Input:
+    /// self = "I am here. Go over there.  Apples are great. How are you? Cows are really really bad."
+    /// Output: ["I am here. ", "Go over there.  ", "Apples are great. ", "How are you? ",  "Cows are really really bad."]
+    @available(iOS 11.0, *)
+    var linguisticTaggerSentences: [String] {
+        let tagger = NSLinguisticTagger(tagSchemes: [.tokenType, .language, .lexicalClass, .nameType, .lemma], options: 0)
+        let range = NSRange(location: 0, length: self.utf16.count)
+        let options: NSLinguisticTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
+        tagger.string = self
+        var sentences: [String] = []
+        tagger.enumerateTags(in: range, unit: .sentence, scheme: .tokenType, options: options) { _, sentenceRange, _ in
+            let sentence = (self as NSString).substring(with: sentenceRange)
+            sentences.append(sentence)
+        }
+        return sentences
+    }
+
     func hasOne(of strings: [String]) -> Bool {
         strings.first(where: { contains($0) }) != nil
     }
@@ -21,7 +83,11 @@ public extension String {
         NSRange(location: 0, length: utf16.count)
     }
 
-    var range: NSRange {
+    var range: Range<String.Index> {
+        .init(uncheckedBounds: (lower: startIndex, upper: endIndex))
+    }
+
+    var nsRange: NSRange {
         NSRange(self.startIndex..., in: self)
     }
 
