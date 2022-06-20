@@ -63,6 +63,7 @@ public extension String {
     /// Input:
     /// self = "I am here. Go over there.  Apples are great. How are you? Cows are really really bad."
     /// Output: ["I am here. ", "Go over there.  ", "Apples are great. ", "How are you? ",  "Cows are really really bad."]
+    @available(macOS 10.13, *)
     @available(iOS 11.0, *)
     var linguisticTaggerSentences: [String] {
         let tagger = NSLinguisticTagger(tagSchemes: [.tokenType, .language, .lexicalClass, .nameType, .lemma], options: 0)
