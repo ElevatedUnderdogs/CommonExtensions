@@ -9,6 +9,12 @@ import Foundation
 
 public extension String {
 
+    var newlineExtraSpacePagaraphs: [String] {
+        components(separatedBy: "\n")
+            .flatMap { $0.components(separatedBy: "         ")}
+            .filter { !$0.isEmpty }
+    }
+
     var words: [String] {
         var words: [String] = []
         enumerateSubstrings(in: startIndex..., options: [.localized, .byWords]) { tag, _, _, _ in
