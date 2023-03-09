@@ -19,7 +19,7 @@ public extension String {
                 encoding: .utf8
             )
         } catch let error {
-            print("error creating file", error.localizedDescription)
+            print("error creating file, are you in an iOS app trying to save to desktop which requires MacOS? Did you disable the sandbox setting? If you haven't you won't be able to write to local files.", error.localizedDescription)
         }
     }
 
