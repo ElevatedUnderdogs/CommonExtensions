@@ -9,6 +9,20 @@ import Foundation
 
 public extension String {
 
+    /// The file save path
+    /// - Parameter path: path where you want to save the csv.
+    func saveTo(path: URL) {
+        do {
+            try write(
+                to: path,
+                atomically: true,
+                encoding: .utf8
+            )
+        } catch let error {
+            print("error creating file", error.localizedDescription)
+        }
+    }
+
     var newlineExtraSpacePagaraphs: [String] {
         components(separatedBy: "\n")
             .flatMap { $0.components(separatedBy: "         ")}
