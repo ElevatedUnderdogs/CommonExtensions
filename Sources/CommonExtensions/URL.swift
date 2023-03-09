@@ -11,7 +11,7 @@ import Security
 public extension URL {
 
     func fileSavePath(path: [String] = [], name: String, ending: String) -> URL {
-        appendingPathComponent(path.joined(separator: "/") + "/" + name + "." + ending)
+        appendingPathComponent(path.joined(separator: "/") + "\(path.isEmpty ? "" : "/")" + name + "." + ending)
     }
 
     var request: URLRequest? {
