@@ -9,6 +9,22 @@ import Foundation
 
 public extension String {
 
+    static var ipAddressPattern: String {
+        "(?<=inet\\s)\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"
+    }
+
+    var thisIPAddress: String? {
+        let task = Process()
+        task.launchPath = "/sbin/ifconfig"
+        task.arguments = ["en0"]
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.launch()
+        guard let output = pipe.fileHandleForReading.readDataToEndOfFile().utf8String,
+              let match = output.range(of: String.ipAddressPattern, options: .regularExpression) else { return nil }
+        return output[match].string
+    }
+
     /// The file save path
     /// - Parameter path: path where you want to save the csv.
     func saveTo(path: URL) {
