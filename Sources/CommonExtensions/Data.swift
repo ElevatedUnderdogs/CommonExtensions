@@ -66,6 +66,10 @@ public extension Data {
         String(data: self, encoding: .utf8)
     }
 
+    var utf8String: String? {
+        String(data: self, encoding: .utf8)
+    }
+
     func append(fileURL: URL) throws {
         if let fileHandle = FileHandle(forWritingAtPath: fileURL.path) {
             defer {

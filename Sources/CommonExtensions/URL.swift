@@ -10,11 +10,21 @@ import Security
 
 public extension URL {
 
+    /// - Random IP Address Generator leads to a discussion about a URLSessionConfiguration which has non-existent properties.
+    /// This is not static func on a `URLRequest` because it uses `URL` `self`.
+    func custom(ip: String) -> URLRequest {
+        var request = URLRequest(url: self)
+        request.httpMethod = "GET"
+        request.httpShouldHandleCookies = false
+        request.allHTTPHeaderFields = ["X-Forwarded-For": ip]
+        return request
+    }
+
     func fileSavePath(path: [String] = [], name: String, ending: String) -> URL {
         appendingPathComponent(path.joined(separator: "/") + "\(path.isEmpty ? "" : "/")" + name + "." + ending)
     }
 
-    var request: URLRequest? {
+    var request: URLRequest {
         URLRequest(url: self)
     }
 
