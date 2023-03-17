@@ -9,6 +9,10 @@ import Foundation
 
 public extension String {
 
+    static var randomIPAddress: String {
+        (1...4).map { _ in Int.random(in: (0...255))}.map(\.string).joined(separator: ".")
+    }
+
     static var ipAddressPattern: String {
         "(?<=inet\\s)\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"
     }
